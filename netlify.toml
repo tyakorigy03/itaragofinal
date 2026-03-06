@@ -9,10 +9,14 @@
 
 # Home
 [[redirects]]
-  from   = "/"
+  from   = "/web"
   to     = "/www/index.html"
   status = 200
-
+# Home
+[[redirects]]
+  from   = "/app"
+  to     = "/itarago.apk"
+  status = 200
 # Exam by ID:  /exam/E05  →  /www/exam.html?id=E05
 [[redirects]]
   from   = "/exam/:id"
