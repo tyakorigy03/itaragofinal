@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itarago - Ibisubizo by'ikizamini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1560BD' }, fontFamily: { rubik: ['Rubik', 'sans-serif'] } } } }</script>
+</head>
+
+<body class="bg-gray-50 font-rubik min-h-screen antialiased">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center gap-4">
+            <a href="index.html" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </a>
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="Itarago Logo" class="h-10 w-auto">
+                <span class="text-xl font-black tracking-tight text-primary uppercase">Itarago</span>
+            </a>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 pb-28">
+        <!-- Results Card -->
+        <div class="bg-white rounded-[2rem] p-8 shadow-2xl border border-gray-100 text-center mb-8">
+            <div class="inline-block p-4 bg-green-100 rounded-full mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" class="text-green-600">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+            </div>
+
+            <h1 class="text-3xl font-black uppercase italic mb-2">Isuzuma ryarangiye!</h1>
+            <p class="text-gray-400 text-sm font-bold mb-8" id="exam-completed">Isuzuma E12</p>
+
+            <!-- Score Circle -->
+            <div class="relative w-48 h-48 mx-auto mb-8">
+                <svg class="w-full h-full" viewBox="0 0 100 100">
+                    <circle class="text-gray-200" stroke-width="8" stroke="currentColor" fill="transparent" r="40"
+                        cx="50" cy="50" />
+                    <circle class="text-primary" stroke-width="8" stroke="currentColor" fill="transparent" r="40"
+                        cx="50" cy="50" stroke-dasharray="251.2" stroke-dashoffset="calc(251.2 - (251.2 * 85) / 100)"
+                        stroke-linecap="round" />
+                </svg>
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                    <span class="text-4xl font-black" id="score-display">85</span>
+                    <span class="text-sm font-black text-gray-400">%</span>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-gray-50 p-4 rounded-xl">
+                    <span class="text-2xl font-black text-primary" id="correct-count">34</span>
+                    <p class="text-[8px] font-black uppercase text-gray-400">Byakozwe neza</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl">
+                    <span class="text-2xl font-black text-red-500" id="wrong-count">6</span>
+                    <p class="text-[8px] font-black uppercase text-gray-400">Byakozwe nabi</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl">
+                    <span class="text-2xl font-black text-yellow-500" id="skipped-count">0</span>
+                    <p class="text-[8px] font-black uppercase text-gray-400">Ntibyasubijwe</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl">
+                    <span class="text-2xl font-black text-green-500" id="time-spent">32</span>
+                    <p class="text-[8px] font-black uppercase text-gray-400">Iminota</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="exam.html"
+                    class="px-8 py-4 bg-primary text-white font-black rounded-xl shadow-lg shadow-primary/30 hover:bg-blue-700 transition-all uppercase tracking-wider italic">
+                    Ongera ugere
+                </a>
+                <a href="review.html"
+                    class="px-8 py-4 bg-gray-100 text-gray-700 font-black rounded-xl hover:bg-gray-200 transition-all uppercase tracking-wider italic">
+                    Kureba ibisubizo
+                </a>
+                <a href="index.html"
+                    class="px-8 py-4 border-2 border-gray-200 text-gray-600 font-black rounded-xl hover:border-primary hover:text-primary transition-all uppercase tracking-wider italic">
+                    Ahabanza
+                </a>
+            </div>
+        </div>
+
+        <!-- Achievement Badges -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8">
+            <h2 class="text-lg font-black uppercase italic mb-6">Ibihembo byawe</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl">
+                    <div class="text-3xl mb-2">🏆</div>
+                    <p class="text-xs font-black uppercase">Umwambere</p>
+                </div>
+                <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl opacity-50">
+                    <div class="text-3xl mb-2">⭐</div>
+                    <p class="text-xs font-black uppercase">Ibyiza 10</p>
+                </div>
+                <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl opacity-50">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <p class="text-xs font-black uppercase">Ibyihuta</p>
+                </div>
+                <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl opacity-50">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <p class="text-xs font-black uppercase">Ibyiza 100%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h2 class="text-lg font-black uppercase italic mb-4">Ibikurikira</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <a href="exam.html?id=E05"
+                    class="p-4 border-2 border-gray-100 rounded-xl hover:border-primary transition-all">
+                    <p class="text-sm font-black">Isuzuma E05</p>
+                    <p class="text-[8px] text-gray-400">Ibibazo 40 · Ikiciro A</p>
+                </a>
+                <a href="exam.html?id=E12"
+                    class="p-4 border-2 border-gray-100 rounded-xl hover:border-primary transition-all">
+                    <p class="text-sm font-black">Isuzuma E12</p>
+                    <p class="text-[8px] text-gray-400">Ibibazo 40 · Ikiciro B</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Load results from URL
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const examId = urlParams.get('id') || 'E01';
+            const score = urlParams.get('score') || '0';
+            const correct = urlParams.get('correct') || '0';
+            const total = urlParams.get('total') || '20';
+
+            // Find the result in localStorage to get timeSpent
+            const results = JSON.parse(localStorage.getItem('examResults') || '[]');
+            const latestResult = results.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+            const timeSpent = latestResult ? latestResult.timeSpent : 0;
+
+            document.getElementById('exam-completed').textContent = `Ikizamini ${examId}`;
+            document.getElementById('score-display').textContent = score;
+            document.getElementById('correct-count').textContent = correct;
+            document.getElementById('wrong-count').textContent = total - correct;
+
+            // Update retry and review links
+            const retryBtn = document.querySelector('a[href="exam.html"]');
+            const reviewBtn = document.querySelector('a[href="review.html"]');
+            if (retryBtn) retryBtn.href = `exam.html?id=${examId}`;
+            if (reviewBtn) reviewBtn.href = `review.html?id=${examId}`;
+
+            // Format time spent
+            const min = Math.floor(timeSpent / 60);
+            const sec = timeSpent % 60;
+            document.getElementById('time-spent').textContent = min > 0 ? `${min}m ${sec}s` : `${sec}s`;
+            // Update label to indicate it's time
+            const timeLabel = document.querySelector('#time-spent + p');
+            if (timeLabel) timeLabel.textContent = 'Igihe wakoresheje';
+        });
+
+        // Results are already saved in exam.html before redirecting here
+    </script>
+</body>
+
+</html>

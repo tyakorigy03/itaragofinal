@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itarago - Ikaze</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1560BD' }, fontFamily: { rubik: ['Rubik', 'sans-serif'] } } } }</script>
+    <style>
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-rubik min-h-screen flex items-center justify-center md:p-6 antialiased">
+
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-0"
+        style="background-image:url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M30 0l30 30-30 30L0 30z%22 fill=%22none%22 stroke=%22%231560BD%22 stroke-width=%221%22/%3E%3C/svg%3E');background-size:60px 60px;">
+    </div>
+
+    <main
+        class="w-full max-w-md bg-white sm:rounded-[2.5rem] sm:shadow-2xl p-10 relative z-10 animate-slide-up min-h-screen sm:min-h-0">
+        <div class="text-center mb-10">
+            <img src="assets/logo.png" alt="Itarago Logo" class="h-20 w-auto mx-auto mb-6">
+            <h1 class="text-3xl font-black text-gray-900 uppercase italic tracking-tight">Ikaze kuri Itarago</h1>
+            <p class="text-gray-400 font-bold mt-2 uppercase text-xs tracking-widest">Injiza amakuru yawe utangire kwiga
+            </p>
+        </div>
+
+        <form id="welcome-form" class="space-y-6" onsubmit="saveUserInfo(event)">
+            <div>
+                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 px-1">Izina
+                    ryose</label>
+                <input type="text" id="user-name" required placeholder="Urugero: Mutesi P."
+                    class="w-full px-6 py-4 bg-gray-50 border-2 border-transparent focus:border-primary focus:bg-white rounded-2xl outline-none transition-all font-bold text-gray-700 placeholder:text-gray-300">
+            </div>
+
+            <div>
+                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 px-1">Numero ya
+                    telefone</label>
+                <input type="tel" id="user-phone" required placeholder="078... cyangwa 079..."
+                    class="w-full px-6 py-4 bg-gray-50 border-2 border-transparent focus:border-primary focus:bg-white rounded-2xl outline-none transition-all font-bold text-gray-700 placeholder:text-gray-300">
+            </div>
+
+            <button type="submit"
+                class="w-full py-5 bg-primary text-white font-black uppercase rounded-2xl shadow-xl shadow-primary/30 hover:bg-blue-700 transition-all tracking-[0.2em] italic text-sm mt-4">
+                Tangira ubu
+            </button>
+        </form>
+
+        <p class="text-[8px] text-gray-300 font-black text-center mt-8 uppercase tracking-widest italic">
+            © 2026 ITARAGO - URUBUGA RWA MBERE MU BIZAMINI BYA PSAC
+        </p>
+    </main>
+
+    <script>
+        function saveUserInfo(event) {
+            event.preventDefault();
+            const name = document.getElementById('user-name').value;
+            const phone = document.getElementById('user-phone').value;
+
+            const userStats = {
+                name: name,
+                phone: phone,
+                testsCompleted: 0,
+                avgScore: 0,
+                bestScore: 0,
+                goalProgress: 0,
+                lastExamId: null
+            };
+
+            localStorage.setItem('userStats', JSON.stringify(userStats));
+            window.location.href = 'index.html';
+        }
+
+        // Redirect if already logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('userStats')) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+    <script src="js/exam-updater.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Itarago — Admin Patch Builder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { theme: { extend: { colors: { primary: '#1560BD' } } } }</script>
+  <style>
+    pre { white-space: pre-wrap; word-break: break-all; }
+    body { font-family: 'Segoe UI', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<div class="max-w-3xl mx-auto px-4 py-10">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-black text-primary uppercase tracking-tight">🛠 Itarago Admin</h1>
+    <p class="text-gray-500 font-medium mt-1">Exam Manifest Patch Builder — generates <code>exam_manifest.json</code></p>
+  </div>
+
+  <!-- Current manifest loader -->
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+    <h2 class="font-black text-lg mb-3 uppercase text-gray-700">1. Load existing manifest</h2>
+    <div class="flex gap-3">
+      <input id="manifest-url" type="text"
+        value="https://itarago.netlify.app/www/exam_manifest.json"
+        class="flex-1 border border-gray-200 rounded-xl px-4 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+      <button onclick="loadManifest()" class="bg-primary text-white font-black px-5 py-2 rounded-xl hover:bg-primary/90 transition">Load</button>
+    </div>
+    <p id="load-status" class="text-xs text-gray-400 mt-2"></p>
+  </div>
+
+  <!-- New patch builder -->
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+    <h2 class="font-black text-lg mb-4 uppercase text-gray-700">2. Build new patch</h2>
+
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-black uppercase text-gray-500 mb-1">Patch ID (unique, e.g. patch_002)</label>
+        <input id="patch-id" type="text" placeholder="patch_002"
+          class="w-full border border-gray-200 rounded-xl px-4 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-black uppercase text-gray-500 mb-1">Description</label>
+        <input id="patch-desc" type="text" placeholder="Added exams E21-E30"
+          class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-black uppercase text-gray-500 mb-1">Patch Type</label>
+        <select id="patch-type" onchange="togglePatchType()"
+          class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40">
+          <option value="full">Full replacement (new exam.json replaces everything)</option>
+          <option value="partial">Partial patch (add/update specific exam keys only)</option>
+        </select>
+      </div>
+
+      <!-- Full patch -->
+      <div id="full-section">
+        <label class="block text-xs font-black uppercase text-gray-500 mb-1">New exam.json URL (relative to base_url)</label>
+        <input id="full-url" type="text" value="exam.json"
+          class="w-full border border-gray-200 rounded-xl px-4 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+      </div>
+
+      <!-- Partial patch -->
+      <div id="partial-section" class="hidden space-y-3">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-black uppercase text-gray-500">Patch files (each file should be a JSON object with exam keys, e.g. {"E21":[...]})</label>
+          <button onclick="addPartialEntry()" class="text-xs bg-primary/10 text-primary font-black px-3 py-1 rounded-lg hover:bg-primary/20">+ Add file</button>
+        </div>
+        <div id="partial-entries" class="space-y-2"></div>
+      </div>
+
+      <!-- Images -->
+      <div>
+        <label class="block text-xs font-black uppercase text-gray-500 mb-1">New images to cache (relative paths, one per line)</label>
+        <textarea id="images-list" rows="3" placeholder="question_images/image_120_1.png&#10;question_images/image_121_1.png"
+          class="w-full border border-gray-200 rounded-xl px-4 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none"></textarea>
+      </div>
+
+      <!-- Notification -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-black uppercase text-gray-500 mb-1">Notification title</label>
+          <input id="notif-title" type="text" value="Ibizamini bishya byongewe!"
+            class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+        </div>
+        <div>
+          <label class="block text-xs font-black uppercase text-gray-500 mb-1">Notification body</label>
+          <input id="notif-body" type="text" value="Ibizamini bishya byageze kuri Itarago. Fungura app kwitoza!"
+            class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+        </div>
+      </div>
+
+      <button onclick="buildPatch()" class="w-full bg-primary text-white font-black py-3 rounded-xl hover:bg-primary/90 transition text-lg">
+        ⚡ Generate Manifest
+      </button>
+    </div>
+  </div>
+
+  <!-- Output -->
+  <div id="output-section" class="hidden bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="font-black text-lg uppercase text-gray-700">3. New exam_manifest.json</h2>
+      <div class="flex gap-2">
+        <button onclick="copyOutput()" class="text-xs bg-gray-100 text-gray-700 font-black px-4 py-2 rounded-lg hover:bg-gray-200 transition">📋 Copy</button>
+        <button onclick="downloadOutput()" class="text-xs bg-primary text-white font-black px-4 py-2 rounded-lg hover:bg-primary/90 transition">⬇ Download</button>
+      </div>
+    </div>
+    <div class="bg-gray-950 rounded-xl p-4 overflow-auto max-h-96">
+      <pre id="output-json" class="text-green-400 text-xs font-mono"></pre>
+    </div>
+    <div class="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+      <p class="text-xs font-black text-blue-800 uppercase mb-1">📤 Next steps</p>
+      <ol class="text-xs text-blue-700 space-y-1 list-decimal list-inside">
+        <li>Download the generated <code>exam_manifest.json</code></li>
+        <li>Place it at <code>www/exam_manifest.json</code> in your Netlify repo</li>
+        <li>If partial patch: also upload the patch JSON file(s) to Netlify</li>
+        <li>If new images: upload them to <code>www/question_images/</code></li>
+        <li>Push/deploy to Netlify — mobile apps will auto-update within 6 hours</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Patch history preview -->
+  <div id="history-section" class="hidden bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mt-6">
+    <h2 class="font-black text-lg mb-3 uppercase text-gray-700">Patch history (from loaded manifest)</h2>
+    <div id="history-list" class="space-y-2"></div>
+  </div>
+</div>
+
+<script>
+  let currentManifest = null;
+
+  function togglePatchType() {
+    const type = document.getElementById('patch-type').value;
+    document.getElementById('full-section').classList.toggle('hidden', type !== 'full');
+    document.getElementById('partial-section').classList.toggle('hidden', type !== 'partial');
+  }
+
+  function addPartialEntry() {
+    const container = document.getElementById('partial-entries');
+    const id = Date.now();
+    const div = document.createElement('div');
+    div.className = 'flex gap-2 items-center';
+    div.innerHTML = `
+      <input type="text" placeholder="patches/e21-e30.json" data-partial
+        class="flex-1 border border-gray-200 rounded-xl px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+      <button onclick="this.parentElement.remove()" class="text-red-400 hover:text-red-600 font-black px-2">✕</button>
+    `;
+    container.appendChild(div);
+  }
+
+  async function loadManifest() {
+    const url = document.getElementById('manifest-url').value;
+    const status = document.getElementById('load-status');
+    status.textContent = 'Loading...';
+    try {
+      const res = await fetch(url + '?t=' + Date.now());
+      currentManifest = await res.json();
+      status.textContent = `✅ Loaded — ${currentManifest.patches?.length || 0} existing patch(es)`;
+
+      // Show history
+      const histEl = document.getElementById('history-section');
+      const list = document.getElementById('history-list');
+      histEl.classList.remove('hidden');
+      list.innerHTML = (currentManifest.patches || []).map(p => `
+        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+          <span class="font-mono text-xs bg-primary/10 text-primary px-2 py-0.5 rounded font-black">${p.patch_id}</span>
+          <span class="text-sm text-gray-600">${p.description || ''}</span>
+          <span class="ml-auto text-xs text-gray-400">${p.released_at?.slice(0,10) || ''}</span>
+        </div>
+      `).join('');
+
+      // Auto-fill next patch ID
+      const lastId = currentManifest.patches?.slice(-1)[0]?.patch_id || 'patch_000';
+      const num = parseInt(lastId.replace(/\D/g, '')) + 1;
+      document.getElementById('patch-id').value = `patch_${String(num).padStart(3,'0')}`;
+    } catch (e) {
+      status.textContent = '❌ Failed: ' + e.message;
+    }
+  }
+
+  function buildPatch() {
+    const patchId = document.getElementById('patch-id').value.trim();
+    const desc = document.getElementById('patch-desc').value.trim();
+    const type = document.getElementById('patch-type').value;
+    const imagesRaw = document.getElementById('images-list').value.trim();
+    const notifTitle = document.getElementById('notif-title').value.trim();
+    const notifBody = document.getElementById('notif-body').value.trim();
+
+    if (!patchId) { alert('Enter a patch ID'); return; }
+
+    // Base manifest
+    const base = currentManifest || {
+      manifest_version: '1.0.0',
+      base_url: 'https://itarago.netlify.app/www/',
+      patches: []
+    };
+
+    // Build exam_patch
+    let examPatch;
+    if (type === 'full') {
+      examPatch = {
+        type: 'full',
+        url: document.getElementById('full-url').value.trim()
+      };
+    } else {
+      const entries = [...document.querySelectorAll('[data-partial]')]
+        .map(i => i.value.trim()).filter(Boolean)
+        .map(url => ({ url }));
+      examPatch = { type: 'partial', entries };
+    }
+
+    const images = imagesRaw ? imagesRaw.split('\n').map(s => s.trim()).filter(Boolean) : [];
+
+    const newPatch = {
+      patch_id: patchId,
+      released_at: new Date().toISOString(),
+      description: desc,
+      exam_patch: examPatch,
+      images
+    };
+
+    const newManifest = {
+      ...base,
+      last_updated: new Date().toISOString(),
+      patches: [...(base.patches || []), newPatch],
+      notification: { title: notifTitle, body: notifBody }
+    };
+
+    const json = JSON.stringify(newManifest, null, 2);
+    document.getElementById('output-json').textContent = json;
+    document.getElementById('output-section').classList.remove('hidden');
+    window._outputJson = json;
+  }
+
+  function copyOutput() {
+    navigator.clipboard.writeText(window._outputJson || '');
+    alert('Copied to clipboard!');
+  }
+
+  function downloadOutput() {
+    const blob = new Blob([window._outputJson || ''], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'exam_manifest.json';
+    a.click();
+  }
+</script>
+</body>
+</html>

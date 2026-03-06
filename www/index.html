@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itarago - Urubuga rwa mbere mu bizamini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1560BD' }, fontFamily: { rubik: ['Rubik', 'sans-serif'] } } } }</script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .pb-safe {
+                padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white font-rubik text-gray-900 overflow-x-hidden min-h-screen relative antialiased">
+
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.02] z-0"
+        style="background-image:url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M30 0l30 30-30 30L0 30z%22 fill=%22none%22 stroke=%22%231560BD%22 stroke-width=%221%22/%3E%3C/svg%3E');background-size:60px 60px;">
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="Itarago Logo" class="h-10 w-auto">
+                <span class="text-xl font-black tracking-tight text-primary uppercase">Itarago</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:block text-xs font-bold text-gray-400 uppercase tracking-wider"
+                    id="user-name-header">Mutesi P.</span>
+                <a href="profile.html"
+                    class="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center text-primary font-black hover:bg-primary hover:text-white transition-all"
+                    id="user-initials-header">MP</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="relative z-10 pt-4 pb-28">
+        <div class="max-w-4xl mx-auto px-6">
+
+            <!-- Welcome Message -->
+            <div class="text-left mb-6">
+                <p class="text-sm font-bold text-gray-400 uppercase tracking-wider">Mwaramutse, 👋</p>
+                <h2 class="text-2xl font-black text-gray-800 italic" id="user-name-welcome">Mutesi P.</h2>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex overflow-x-auto sm:justify-center border-b border-gray-200 mb-8 scrollbar-hide">
+                <button onclick="switchTab('testing')" id="tab-testing"
+                    class="shrink-0 px-3 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-sm font-black uppercase tracking-wider border-b-2 border-primary text-primary transition-all">Isuzumabumenyi</button>
+                <button onclick="switchTab('courses')" id="tab-courses"
+                    class="shrink-0 px-3 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-sm font-black uppercase tracking-wider border-b-2 border-transparent text-gray-400 hover:text-gray-600 transition-all">Amasomo</button>
+                <button onclick="switchTab('pricing')" id="tab-pricing"
+                    class="shrink-0 px-3 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-sm font-black uppercase tracking-wider border-b-2 border-transparent text-gray-400 hover:text-gray-600 transition-all">Ibiciro</button>
+            </div>
+
+            <!-- Testing Tab -->
+            <section id="content-testing" class="tab-content block pb-20">
+                <div class="max-w-4xl mx-auto">
+                    <!-- USER PROGRESS SUMMARY CARD -->
+                    <div
+                        class="bg-gradient-to-br from-primary via-blue-700 to-blue-900 text-white p-6 rounded-[2rem] shadow-2xl mb-8 text-left relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -ml-8 -mb-8"></div>
+
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-[10px] font-black uppercase italic flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    Intambwe umaze gutera
+                                </h2>
+                                <a href="stats.html"
+                                    class="text-[9px] bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full font-black tracking-wider border border-white/30 hover:bg-white/30 transition-all whitespace-nowrap flex-shrink-0">
+                                    🏆 Uduhigo 3
+                                </a>
+                            </div>
+
+                            <!-- Stats Grid -->
+                            <div class="grid grid-cols-3 gap-4 mb-6">
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                                    <p class="text-2xl font-black" id="tests-completed">12</p>
+                                    <p class="text-[8px] font-black uppercase opacity-80 tracking-wider">Byakozwe</p>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                                    <p class="text-2xl font-black" id="avg-score">84<small class="text-sm">%</small></p>
+                                    <p class="text-[8px] font-black uppercase opacity-80 tracking-wider">Impuzandengo
+                                    </p>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                                    <p class="text-2xl font-black" id="best-score">96<small class="text-sm">%</small>
+                                    </p>
+                                    <p class="text-[8px] font-black uppercase opacity-80 tracking-wider">Byiza kurusha
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mb-2 flex justify-between items-center">
+                                <span class="text-xs font-bold uppercase tracking-wider">Intego: Ibizamini 40</span>
+                                <span class="text-xs font-black text-yellow-300" id="goal-percent">0%</span>
+                            </div>
+                            <div class="w-full bg-white/30 rounded-full h-3 mb-1">
+                                <div id="goal-progress-bar" class="bg-yellow-400 h-3 rounded-full relative"
+                                    style="width: 0%;">
+                                    <div
+                                        class="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white shadow-lg">
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs font-bold mt-3 tracking-wider opacity-90" id="goal-remaining-text">
+                                🎯 Ibizamini 0/40 - <a href="all-exams.html"
+                                    class="underline hover:text-yellow-300">Ikindi 40 usigaje!</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- QUICK ACTIONS -->
+                    <div class="grid grid-cols-2 gap-4 mb-10">
+                        <button
+                            class="bg-white p-6 rounded-[2rem] border-2 border-primary/20 shadow-lg flex flex-col items-center justify-center gap-3 hover:border-primary hover:bg-primary/5 transition-all group text-center">
+                            <div
+                                class="h-12 w-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="block text-sm font-black uppercase italic leading-none mb-1">Tangira</span>
+                                <span class="text-[9px] font-bold text-gray-400 uppercase tracking-tighter">Igereze
+                                    nonaha</span>
+                            </div>
+                        </button>
+
+                        <button onclick="continueLastExam()"
+                            class="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-lg flex flex-col items-center justify-center gap-3 hover:border-primary hover:bg-primary/5 transition-all group text-center">
+                            <div
+                                class="h-12 w-12 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:text-primary group-hover:bg-primary/10 group-hover:scale-110 transition-all flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M23 4v6h-6"></path>
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-sm font-black text-gray-400 uppercase italic group-hover:text-primary leading-none mb-1">Komeza</span>
+                                <span class="text-[9px] font-bold text-gray-400 uppercase tracking-tighter">Subiramo
+                                    ikizamini wakoze ubushize</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- RECOMMENDED FOR YOU SECTION -->
+                    <div id="history-section" class="text-left mb-10 hidden">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-md font-black uppercase italic text-gray-700 flex items-center gap-2">
+                                <span class="bg-yellow-400 text-yellow-900 px-2 py-1 rounded-lg text-xs">✨</span>
+                                Ibyo witoza
+                            </h3>
+                            <a href="all-exams.html?filter=recommended"
+                                class="text-[10px] font-black text-primary uppercase italic flex items-center gap-1 hover:gap-2 transition-all">
+                                Reba byose
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6" />
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div id="recommended-grid" class="grid grid-cols-2 gap-4">
+                            <!-- Dynamic recommended exams will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- ALL EXAMS SECTION -->
+                    <div class="text-left">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-md font-black uppercase italic text-gray-700 flex items-center gap-2">
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded-lg text-xs">📚</span>
+                                Ibizamini byose
+                            </h3>
+                            <a href="all-exams.html"
+                                class="text-[10px] font-black text-primary uppercase italic flex items-center gap-1 hover:gap-2 transition-all">
+                                Reba byose
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6" />
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div id="exam-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            <!-- Dynamic exam cards will be inserted here -->
+                        </div>
+
+                        <!-- Loading Spinner -->
+                        <div id="loading-spinner" class="mt-12 flex justify-center">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Courses Tab -->
+            <section id="content-courses" class="tab-content hidden pb-20">
+                <div class="max-w-4xl mx-auto">
+
+                    <!-- Lessons List -->
+                    <div class="space-y-4">
+                        <!-- Lesson 1 - Free -->
+                        <a href="amategeko-yibanze.html"
+                            class="block bg-white p-5 rounded-2xl border border-gray-100 shadow-sm text-left flex items-center gap-4 hover:shadow-md hover:border-primary/20 transition-all cursor-pointer group">
+                            <div
+                                class="h-14 w-14 bg-green-50 rounded-xl flex items-center justify-center text-green-600 flex-shrink-0 text-2xl group-hover:scale-110 transition-transform">
+                                🚦</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-base font-black uppercase italic">Iby'ibanze ku mategeko</h3>
+                                    <span
+                                        class="bg-green-100 text-green-700 text-[8px] font-black px-3 py-1 rounded-full uppercase italic">FREE</span>
+                                </div>
+                                <p class="text-xs text-gray-500 font-medium mt-1">Ibisobanuro ku mategeko y'ibanze
+                                    y'umuhanda.</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-[8px] font-bold text-gray-400 flex items-center gap-1">⏱️ Imins.
+                                        15</span>
+                                    <span class="text-[8px] font-bold text-gray-400 flex items-center gap-1">📖 24
+                                        ipaji</span>
+                                </div>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="text-gray-300 group-hover:text-primary transition-colors">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </a>
+
+                        <!-- Lesson 2 - Premium/Coming Soon -->
+                        <div
+                            class="block bg-gray-50/50 p-5 rounded-2xl border border-gray-100 shadow-sm text-left flex items-center gap-4 transition-all relative grayscale-[0.5]">
+                            <div class="absolute inset-0 bg-white/10 backdrop-blur-[1px] rounded-2xl z-10"></div>
+                            <div
+                                class="h-14 w-14 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 flex-shrink-0 text-2xl group-hover:scale-110 transition-transform">
+                                🛑</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-base font-black uppercase italic">Ibimenyetso by'umuhanda</h3>
+                                    <span
+                                        class="bg-yellow-100 text-yellow-700 text-[8px] font-black px-3 py-1 rounded-full uppercase italic border border-yellow-200 animate-pulse">Vuba
+                                        aha</span>
+                                </div>
+                                <p class="text-xs text-gray-500 font-medium mt-1">Ibyerekeye ibimenyetso by'umuhanda
+                                    byose ukeneye kumenya.</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-[8px] font-bold text-gray-400 flex items-center gap-1">⏱️ Imins.
+                                        30</span>
+                                    <span class="text-[8px] font-bold text-gray-400 flex items-center gap-1">📖 48
+                                        ipaji</span>
+                                </div>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="text-gray-200">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+
+                        <!-- View All Link -->
+                        <div class="mt-8 text-center">
+                            <a href="courses.html"
+                                class="inline-flex items-center gap-2 text-primary text-xs font-black uppercase italic hover:gap-3 transition-all">
+                                <span>Reba amasomo yose</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+            </section>
+
+            <!-- Pricing Tab -->
+            <section id="content-pricing" class="tab-content hidden pb-20">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Header with Savings Calculator -->
+                    <div
+                        class="bg-gradient-to-r from-primary/5 to-blue-50 p-6 rounded-[2rem] mb-10 text-left border border-primary/20">
+                        <h3 class="text-lg font-black uppercase italic text-primary mb-2">Hitamo uburyo bukwiye</h3>
+                        <p class="text-xs text-gray-600 font-medium">Uzugura 40% iyo uguze ukwezi kose!</p>
+                    </div>
+
+                    <!-- Pricing Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Weekly Card - BEST VALUE -->
+                        <div
+                            class="bg-white p-8 rounded-[2.5rem] border-2 border-primary shadow-2xl text-center relative scale-105 md:scale-110 z-20">
+                            <div
+                                class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white text-[8px] px-6 py-1.5 rounded-full font-black uppercase tracking-wider shadow-lg">
+                                🔥 Gukundwa cyane</div>
+                            <h4 class="text-gray-400 text-[10px] font-black uppercase mb-8 italic tracking-widest mt-4">
+                                Iminsi 7</h4>
+                            <div class="flex items-end justify-center gap-1 mb-6">
+                                <span class="text-5xl font-black text-gray-900 italic">500</span>
+                                <span class="text-[10px] font-black text-gray-400 uppercase italic mb-1.5">FRW</span>
+                            </div>
+                            <ul
+                                class="space-y-3 text-[9px] font-black text-gray-700 mb-8 italic uppercase tracking-wider text-left px-4">
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span>
+                                    Ibizamini 20 byose</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span>
+                                    Amasomo 2</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span> Kureba
+                                    ibisubizo</li>
+                                <li class="flex items-center gap-2 opacity-40"><span
+                                        class="text-gray-300 text-sm">✗</span> Nta ndangururamajwi</li>
+                                <li class="flex items-center gap-2 opacity-40"><span
+                                        class="text-gray-300 text-sm">✗</span> Gukurikirana amajyambere</li>
+                            </ul>
+                            <button onclick="openPaymentModal('weekly')"
+                                class="block w-full py-4 bg-primary text-white font-black uppercase rounded-2xl shadow-lg shadow-primary/30 tracking-widest italic hover:bg-blue-700 transition-all">Hitamo</button>
+                        </div>
+
+                        <!-- Monthly Card -->
+                        <div
+                            class="bg-white p-8 rounded-[2.5rem] border border-gray-200 shadow-xl text-center relative hover:scale-105 transition-all duration-300">
+                            <div
+                                class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-200 text-gray-700 text-[8px] px-4 py-1 rounded-full font-black uppercase tracking-wider">
+                                Icyiciro cya 2</div>
+                            <h4 class="text-gray-400 text-[10px] font-black uppercase mb-8 italic tracking-widest mt-4">
+                                Ukwezi 1</h4>
+                            <div class="flex items-end justify-center gap-1 mb-2">
+                                <span class="text-5xl font-black text-gray-900 italic">2500</span>
+                                <span class="text-[10px] font-black text-gray-400 uppercase italic mb-1.5">FRW</span>
+                            </div>
+                            <p class="text-[10px] font-black text-green-600 mb-6 italic">Uzigama 40% (kuri 500
+                                FRW/icyumweru)</p>
+                            <ul
+                                class="space-y-3 text-[9px] font-black text-gray-500 mb-8 italic uppercase tracking-wider text-left px-4">
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span>
+                                    Ibizamini 40+ byose</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span>
+                                    Amasomo 8 yose</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span> Kureba
+                                    ibisubizo</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span> Nta
+                                    ndangururamajwi</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span>
+                                    Gukurikirana amajyambere</li>
+                            </ul>
+                            <button onclick="openPaymentModal('monthly')"
+                                class="block w-full py-4 bg-gray-50 text-gray-600 font-black uppercase rounded-2xl border border-gray-200 tracking-widest italic hover:bg-gray-100 transition-all">Hitamo</button>
+                        </div>
+
+                        <!-- Promo Card -->
+                        <div
+                            class="bg-white p-8 rounded-[2.5rem] border border-gray-200 shadow-xl text-center relative overflow-hidden hover:scale-105 transition-all duration-300">
+                            <div
+                                class="absolute top-0 right-0 bg-primary text-white text-[8px] px-12 py-1.5 font-black uppercase transform rotate-45 translate-x-8 translate-y-4 shadow-sm italic">
+                                PROMO</div>
+                            <h4 class="text-gray-400 text-[10px] font-black uppercase mb-8 italic tracking-widest mt-4">
+                                Takalamo PROMO</h4>
+                            <div class="flex items-end justify-center gap-1 mb-6">
+                                <span class="text-5xl font-black text-gray-900 italic">1500</span>
+                                <span class="text-[10px] font-black text-gray-400 uppercase italic mb-1.5">FRW</span>
+                            </div>
+                            <ul
+                                class="space-y-3 text-[9px] font-black text-gray-500 mb-8 italic uppercase tracking-wider text-left px-4">
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span>
+                                    Ibizamini 20 byabajijwe</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span>
+                                    Amasomo 4</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span> Kureba
+                                    ibisubizo</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 text-sm">✓</span> Nta
+                                    ndangururamajwi</li>
+                                <li class="flex items-center gap-2 opacity-40"><span
+                                        class="text-gray-300 text-sm">✗</span> Gukurikirana amajyambere</li>
+                            </ul>
+                            <button onclick="openPaymentModal('promo')"
+                                class="block w-full py-4 bg-primary/10 text-primary font-black uppercase rounded-2xl border border-primary/30 tracking-widest italic hover:bg-primary/20 transition-all">Hitamo</button>
+                        </div>
+                    </div>
+
+                    <!-- Money Back Guarantee -->
+                    <div
+                        class="mt-12 flex items-center justify-center gap-3 text-gray-400 text-[10px] font-black uppercase tracking-wider">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12a9 9 0 1 1-9-9" />
+                            <path d="M12 6v6l3 2" />
+                        </svg>
+                        <span>Garanti yo gusubiza amafaranga mu minsi 7</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Support Section -->
+        <section class="max-w-4xl mx-auto px-6 mb-16">
+            <div
+                class="bg-gradient-to-br from-primary via-blue-700 to-blue-900 text-white rounded-[2.5rem] p-8 shadow-2xl text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -ml-8 -mb-8"></div>
+
+                <h2 class="text-xl font-black uppercase italic mb-6 relative z-10">Ugize ikibazo duhamagare tugufashe
+                </h2>
+
+                <div class="flex flex-row gap-3 justify-center relative z-10">
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/250795987348"
+                        class="flex flex-1 items-center justify-center gap-2 bg-[#25D366] text-white py-4 px-2 rounded-full font-black uppercase italic shadow-lg shadow-black/20 hover:scale-[1.02] active:scale-95 transition-all text-[10px] sm:text-xs min-w-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="currentColor" class="flex-shrink-0">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        <span class="truncate">WhatsApp</span>
+                    </a>
+                    <!-- Phone -->
+                    <a href="tel:250795987348"
+                        class="flex flex-1 items-center justify-center gap-2 bg-white/20 backdrop-blur-sm text-white py-4 px-2 rounded-full font-black uppercase italic border border-white/30 hover:bg-white/30 active:scale-95 transition-all text-[10px] sm:text-xs min-w-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="flex-shrink-0">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 10a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        <span class="truncate">Hamagara</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50/50 pt-16 pb-20 border-t border-gray-100 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center gap-8 mb-8">
+                <a href="#" class="text-gray-300 hover:text-primary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 10a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-primary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-primary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                </a>
+            </div>
+            <div class="text-gray-300 text-[8px] font-black italic tracking-[0.2em] uppercase">
+                © 2026 ITARAGO - URUBUGA RWA MBERE MU BIZAMINI.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation Bar for Mobile -->
+    <div
+        class="fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-100 z-50 block md:hidden transition-all duration-300 pb-safe">
+        <div class="flex items-center justify-around py-3 px-6">
+            <!-- Home (Active) -->
+            <a href="index.html" class="flex flex-col items-center gap-1 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22" stroke="white" stroke-width="2" fill="none"></polyline>
+                </svg>
+                <span class="text-[7px] font-black uppercase tracking-widest">Ahabanza</span>
+            </a>
+
+            <!-- Quick Start Exam -->
+            <button onclick="startRandomExam()"
+                class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+                <span class="text-[7px] font-black uppercase tracking-widest">Igeregeze</span>
+            </button>
+
+            <!-- Stats -->
+            <a href="stats.html"
+                class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span class="text-[7px] font-black uppercase tracking-widest">Isesengura</span>
+            </a>
+
+            <!-- Profile -->
+            <a href="profile.html"
+                class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="text-[7px] font-black uppercase tracking-widest">Konti</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Onboarding Check
+        if (!localStorage.getItem('userStats')) {
+            window.location.href = 'welcome.html';
+        }
+
+        // Global variables
+        let examIds = [];
+        let userStats = {
+            name: 'Paji yawe',
+            testsCompleted: 0,
+            avgScore: 0,
+            bestScore: 0,
+            goalProgress: 0,
+            lastExamId: null
+        };
+
+        // Tab switching function
+        function switchTab(tabName) {
+            const tabs = ['testing', 'courses', 'pricing'];
+
+            tabs.forEach(id => {
+                const tabButton = document.getElementById('tab-' + id);
+                if (id === tabName) {
+                    tabButton.classList.add('border-primary', 'text-primary');
+                    tabButton.classList.remove('border-transparent', 'text-gray-400');
+                } else {
+                    tabButton.classList.remove('border-primary', 'text-primary');
+                    tabButton.classList.add('border-transparent', 'text-gray-400');
+                }
+            });
+
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('block');
+            });
+
+            document.getElementById('content-' + tabName).classList.remove('hidden');
+            document.getElementById('content-' + tabName).classList.add('block');
+
+            // Save active tab to localStorage
+            localStorage.setItem('activeTab', tabName);
+        }
+
+        // Load exams from JSON
+        async function loadExams() {
+            const grid = document.getElementById('exam-grid');
+            if (!grid) return;
+
+            try {
+                const response = await fetch('exam.json');
+                const data = await response.json();
+
+                grid.innerHTML = '';
+
+                // 1. Populate the top "Ibyo witoza" section with history
+                populateRecommendedExams(data);
+
+                // 2. Populate the bottom "Ibizamini byose" section with regular exams
+                const allIds = Object.keys(data).sort((a, b) => {
+                    const numA = parseInt(a.replace('E', ''));
+                    const numB = parseInt(b.replace('E', ''));
+                    return numA - numB;
+                });
+
+                // Show first 6 exams below
+                allIds.slice(0, 6).forEach(id => {
+                    const exam = data[id];
+                    const card = createExamCard(id, exam.length, false);
+                    grid.appendChild(card);
+                });
+
+                const spinner = document.getElementById('loading-spinner');
+                if (spinner) spinner.classList.add('hidden');
+
+            } catch (error) {
+                console.error('Error loading exams:', error);
+                grid.innerHTML = '<p class="col-span-full text-red-500 font-bold bg-red-50 p-4 rounded-xl italic">Habayemo ikibazo mu gushaka ibizamini. Ongera ugerageze.</p>';
+            }
+        }
+
+        function createExamCard(id, length, isHistory, score = 0) {
+            const card = document.createElement('div');
+            card.className = 'bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/30 transition-all cursor-pointer group relative overflow-hidden';
+
+            let badgeHtml = '';
+            if (isHistory) {
+                const isPassing = score >= 60;
+                const badgeColor = isPassing ? 'bg-green-500' : 'bg-red-500';
+                badgeHtml = `<span class="absolute top-2 right-2 ${badgeColor} text-white text-[8px] font-black px-2 py-0.5 rounded-full italic uppercase">Kwakozwe ${score}%</span>`;
+            } else {
+                // Check localStorage for a previous result on this exam
+                const results = JSON.parse(localStorage.getItem('examResults') || '[]');
+                const prevResult = results.filter(r => r.examId === id).sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+                if (prevResult) {
+                    const isPassing = prevResult.score >= 60;
+                    const badgeColor = isPassing ? 'bg-green-500' : 'bg-red-500';
+                    badgeHtml = `<span class="absolute top-2 right-2 ${badgeColor} text-white text-[8px] font-black px-2 py-0.5 rounded-full italic uppercase">Byakozwe ${prevResult.score}%</span>`;
+                }
+            }
+
+            card.innerHTML = `
+                ${badgeHtml}
+                <div class="h-12 w-12 bg-blue-50 rounded-xl flex items-center justify-center text-primary mx-auto mb-3 group-hover:scale-110 transition-transform text-xl">
+                    ${isHistory ? '🕒' : '📋'}
+                </div>
+                <p class="text-sm font-black uppercase text-center">Ikizamini ${id}</p>
+                <div class="flex items-center justify-center gap-2 mt-2">
+                    <span class="text-[8px] bg-gray-100 px-2 py-0.5 rounded-full font-bold">ibibazo ${length}</span>
+                    <span class="text-[8px] text-primary font-black uppercase italic">Kategori B</span>
+                </div>
+            `;
+
+            card.onclick = () => {
+                localStorage.setItem('lastExamId', id);
+                window.location.href = `exam.html?id=${id}`;
+            };
+            return card;
+        }
+
+        // Generate mock exam data
+        function generateMockExams(count) {
+            const exams = {};
+            for (let i = 1; i <= count; i++) {
+                const id = `E${i.toString().padStart(2, '0')}`;
+                exams[id] = {
+                    id: id,
+                    questions: 40,
+                    difficulty: 'B'
+                };
+            }
+            return exams;
+        }
+
+        // Populate recommended exams section (Ibyo witoza)
+        function populateRecommendedExams(data) {
+            const recommendedGrid = document.getElementById('recommended-grid');
+            const historySection = document.getElementById('history-section');
+            if (!recommendedGrid || !data) return;
+
+            const results = JSON.parse(localStorage.getItem('examResults') || '[]');
+            const uniqueHistory = [];
+            const seen = new Set();
+
+            // Sort by date descending
+            const sortedResults = [...results].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            for (const res of sortedResults) {
+                if (!seen.has(res.examId) && data[res.examId]) {
+                    uniqueHistory.push(res);
+                    seen.add(res.examId);
+                }
+                if (uniqueHistory.length >= 2) break;
+            }
+
+            // If no history, hide the entire section
+            if (uniqueHistory.length === 0) {
+                if (historySection) historySection.classList.add('hidden');
+                return;
+            }
+
+            // Show section and clear grid
+            if (historySection) historySection.classList.remove('hidden');
+            recommendedGrid.innerHTML = '';
+
+            uniqueHistory.forEach((res, index) => {
+                const isFirst = index === 0;
+                const id = res.examId;
+                const exam = data[id];
+                if (!exam) return;
+
+                const card = document.createElement('div');
+                card.className = isFirst ?
+                    'bg-gradient-to-br from-primary/5 to-blue-50 p-4 rounded-2xl border-2 border-primary/30 shadow-md relative group cursor-pointer hover:shadow-xl transition-all' :
+                    'bg-white p-4 rounded-2xl border border-gray-200 shadow-md group cursor-pointer hover:border-primary transition-all';
+
+                const badge = `<span class="absolute top-2 right-2 bg-green-500 text-white text-[8px] font-black px-2 py-0.5 rounded-full italic uppercase tracking-tighter">Amanota: ${res.score}%</span>`;
+
+                card.innerHTML = `
+                    ${badge}
+                    <div class="h-10 w-10 ${isFirst ? 'bg-primary text-white' : 'bg-purple-50 text-purple-600'} rounded-xl flex items-center justify-center mb-3 text-xl group-hover:scale-110 transition-transform">
+                        �
+                    </div>
+                    <p class="text-sm font-black uppercase">Isuzuma ${id}</p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-[9px] ${isFirst ? 'bg-white/80' : 'bg-gray-100'} px-2 py-0.5 rounded-full font-bold">ibibazo ${exam.length || 40}</span>
+                        <span class="text-[9px] ${isFirst ? 'text-primary' : 'text-purple-600'} font-black italic">Kategori B</span>
+                    </div>
+                `;
+
+                card.onclick = () => {
+                    localStorage.setItem('lastExamId', id);
+                    window.location.href = `exam.html?id=${id}`;
+                };
+
+                recommendedGrid.appendChild(card);
+            });
+        }
+
+        // Continue last exam
+        function continueLastExam() {
+            const lastExamId = localStorage.getItem('lastExamId') || userStats.lastExamId || 'E01';
+            window.location.href = `exam.html?id=${lastExamId}`;
+        }
+
+        // Start random exam
+        function startRandomExam() {
+            if (examIds.length > 0) {
+                const randomId = examIds[Math.floor(Math.random() * examIds.length)];
+                localStorage.setItem('lastExamId', randomId);
+                window.location.href = `exam.html?id=${randomId}`;
+            } else {
+                window.location.href = `exam.html?id=E01`;
+            }
+        }
+
+        // Update user stats from localStorage
+        function updateUserStats() {
+            const savedStats = localStorage.getItem('userStats');
+            const results = JSON.parse(localStorage.getItem('examResults') || '[]');
+
+            if (savedStats) {
+                try {
+                    userStats = JSON.parse(savedStats);
+                } catch (e) {
+                    console.error('Error parsing user stats');
+                }
+            }
+
+            // Sync with results
+            if (results.length > 0) {
+                userStats.testsCompleted = results.length;
+                userStats.bestScore = Math.max(...results.map(r => r.score));
+                userStats.avgScore = Math.round(results.reduce((acc, r) => acc + r.score, 0) / results.length);
+            }
+
+            document.getElementById('tests-completed').innerText = userStats.testsCompleted || '0';
+            document.getElementById('avg-score').innerHTML = (userStats.avgScore || '0') + '<small class="text-sm">%</small>';
+            document.getElementById('best-score').innerHTML = (userStats.bestScore || '0') + '<small class="text-sm">%</small>';
+
+            // Update Name
+            const userNameElements = ['user-name-header', 'user-name-welcome'];
+            userNameElements.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = userStats.name || 'Umukoresha';
+            });
+
+            // Update Initials
+            if (userStats.name) {
+                const initials = userStats.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                const initialsHeader = document.getElementById('user-initials-header');
+                if (initialsHeader) initialsHeader.innerText = initials;
+            }
+
+            // Goal Progress (Goal: 40 exams)
+            const goal = 40;
+            const completed = userStats.testsCompleted || 0;
+            const progressPercent = Math.min(Math.round((completed / goal) * 100), 100);
+
+            const progressBar = document.getElementById('goal-progress-bar');
+            if (progressBar) progressBar.style.width = progressPercent + '%';
+
+            const goalPercentEl = document.getElementById('goal-percent');
+            if (goalPercentEl) goalPercentEl.innerText = progressPercent + '%';
+
+            const goalRemainingEl = document.getElementById('goal-remaining-text');
+            if (goalRemainingEl) {
+                const remaining = Math.max(goal - completed, 0);
+                goalRemainingEl.innerHTML = `🎯 Ibizamini ${completed}/${goal} - <a href="all-exams.html" class="underline hover:text-yellow-300">Ikindi ${remaining} usigaje!</a>`;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedTab = localStorage.getItem('activeTab') || 'testing';
+            switchTab(savedTab);
+
+            updateUserStats();
+            loadExams();
+        });
+    </script>
+    <script src="js/payments.js"></script>
+    <script src="js/exam-updater.js"></script>
+</body>
+
+</html>

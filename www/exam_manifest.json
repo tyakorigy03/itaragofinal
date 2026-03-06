@@ -1,0 +1,52 @@
+{
+  "manifest_version": "1.0.0",
+  "last_updated": "2026-03-06T16:27:30.456Z",
+  "base_url": "https://itarago.netlify.app/www/",
+  "patches": [
+    {
+      "patch_id": "patch_001",
+      "released_at": "2026-03-06T00:00:00Z",
+      "description": "Initial exam set (E01-E20)",
+      "exam_patch": {
+        "type": "full",
+        "url": "exam.json",
+        "checksum": ""
+      },
+      "images": []
+    },
+    {
+      "patch_id": "patch_002",
+      "released_at": "2026-03-06T16:14:58.698Z",
+      "description": "Added 0-19",
+      "exam_patch": {
+        "type": "partial",
+        "entries": [
+          {
+            "url": "patches/patch_002.json",
+            "checksum": "8425c09467538362fd9f7583e4c6246a"
+          }
+        ]
+      },
+      "images": []
+    },
+    {
+      "patch_id": "patch_003",
+      "released_at": "2026-03-06T16:27:30.456Z",
+      "description": "Added E21",
+      "exam_patch": {
+        "type": "partial",
+        "entries": [
+          {
+            "url": "patches/patch_003.json",
+            "checksum": "366d817bbceae53050e17c87635b40fb"
+          }
+        ]
+      },
+      "images": []
+    }
+  ],
+  "notification": {
+    "title": "Ibizamini bishya byongewe! 📚",
+    "body": "Added E21. Fungura app kwitoza!"
+  }
+}

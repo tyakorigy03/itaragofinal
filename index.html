@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="rw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itarago - Urubuga rwa mbere mu bizamini bya PSAC</title>
+    <meta name="description"
+        content="Witeguye ibizamini bya PSAC? Itarago ni appp ifasha abashoferi bato kwiga amategeko y'umuhanda no gutegura ibizamini byabo.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;0,800;0,900;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#1560BD', dark: '#0a1628' },
+                    fontFamily: { rubik: ['Rubik', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(1deg);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(21, 96, 189, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 16px rgba(21, 96, 189, 0);
+            }
+        }
+
+        .float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .fade-up {
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .fade-up-2 {
+            animation: fadeUp 0.7s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .fade-up-3 {
+            animation: fadeUp 0.7s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .fade-up-4 {
+            animation: fadeUp 0.7s 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .pulse-btn {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a1628 0%, #1560BD 60%, #1e3a6e 100%);
+        }
+
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px rgba(21, 96, 189, 0.15);
+        }
+
+        .stat-number {
+            background: linear-gradient(135deg, #1560BD, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="font-rubik bg-white text-gray-900 antialiased overflow-x-hidden">
+
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="Itarago" class="h-9 w-auto" onerror="this.style.display='none'">
+                <span class="text-xl font-black uppercase tracking-tight text-primary">Itarago</span>
+            </div>
+            <a href="#download"
+                class="px-4 py-2 sm:px-5 sm:py-2.5 bg-primary text-white text-[10px] sm:text-sm font-black rounded-full uppercase italic tracking-wider hover:bg-blue-700 transition-all shadow-lg shadow-primary/30 hover:scale-105 active:scale-95">
+                Downloadinga App
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero-gradient min-h-screen flex items-center relative overflow-hidden pt-16">
+        <!-- Background decorations -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-20 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 left-0 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl"></div>
+            <div
+                class="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2">
+            </div>
+            <!-- Floating shapes -->
+            <div class="absolute top-32 left-10 w-8 h-8 border-2 border-white/20 rounded-xl rotate-12 float"
+                style="animation-delay:0s"></div>
+            <div class="absolute top-48 right-20 w-5 h-5 bg-yellow-400/60 rounded-full float"
+                style="animation-delay:1s"></div>
+            <div class="absolute bottom-40 left-1/4 w-6 h-6 border-2 border-blue-300/30 rotate-45 float"
+                style="animation-delay:0.5s"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 py-20 w-full relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <!-- Left content -->
+                <div class="text-white">
+                    <div
+                        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-xs font-black uppercase tracking-wider mb-8 fade-up">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                        Ubu Irabona Kuri Android
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-black uppercase italic leading-[1.05] mb-6 fade-up-2">
+                        Itegure ikizamini cya provisoure<br>
+                        <span class="text-yellow-400">muburyo bugezweho</span>
+                    </h1>
+                    <p class="text-blue-100 text-lg font-medium leading-relaxed mb-10 fade-up-3 max-w-md">
+                        Itarago ni application ifasha abashoferi bato kwiga amategeko y'umuhanda no gutsinda ibizamini
+                        bya PSAC bwa mbere bashije.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 fade-up-4">
+                        <a href="#download" id="hero-download"
+                            class="pulse-btn flex items-center justify-center gap-3 bg-white text-primary px-8 py-4 rounded-2xl font-black uppercase italic text-sm shadow-2xl hover:scale-105 active:scale-95 transition-all tracking-wider">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M17.523 15.341l-1.65-1.65A5.978 5.978 0 0 0 17 12a6 6 0 0 0-6-6 5.978 5.978 0 0 0-1.65.127L7.7 4.477A8 8 0 0 1 19.83 12a7.97 7.97 0 0 1-2.307 3.341zM3.514 9.25a8.004 8.004 0 0 0 0 5.5A7.965 7.965 0 0 0 8 18.83V21a1 1 0 0 0 1.707.707l3-3A1 1 0 0 0 13 18v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-.707 1.707L9.586 17A6.001 6.001 0 0 1 5 12a5.978 5.978 0 0 1 .127-1.227L3.514 9.25z" />
+                            </svg>
+                            Downloadinga kuri Android
+                        </a>
+                        <a href="www/index.html"
+                            class="flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-2xl font-black uppercase italic text-sm hover:bg-white/20 transition-all tracking-wider">
+                            Fungura ku rubuga
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Phone mockup -->
+                <div class="hidden md:flex justify-center items-center">
+                    <div class="relative float">
+                        <!-- Phone frame -->
+                        <div
+                            class="w-64 h-[520px] bg-gray-900 rounded-[3rem] border-4 border-gray-700 shadow-[0_50px_100px_rgba(0,0,0,0.6)] relative overflow-hidden">
+                            <div
+                                class="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-gray-900 rounded-b-2xl z-10">
+                            </div>
+                            <!-- Screen content -->
+                            <div
+                                class="h-full bg-gradient-to-br from-primary via-blue-700 to-blue-900 flex flex-col items-center justify-center p-6 text-white text-center">
+                                <div class="text-5xl mb-4">📋</div>
+                                <p class="text-xs font-black uppercase tracking-widest opacity-60 mb-2">Ikizamini E12
+                                </p>
+                                <h3 class="text-xl font-black uppercase italic mb-6">Ikibazo 1/20</h3>
+                                <div class="w-full bg-white/20 rounded-xl p-4 text-left mb-4">
+                                    <p class="text-xs font-bold leading-relaxed">Ni ikihe kimenyetso kigaragaza ko
+                                        ugomba guhagarara burundu?</p>
+                                </div>
+                                <div class="space-y-2 w-full">
+                                    <div
+                                        class="bg-white text-primary rounded-xl px-4 py-2 text-xs font-black flex items-center gap-2">
+                                        <span
+                                            class="w-5 h-5 bg-primary text-white rounded-md flex items-center justify-center text-[9px]">A</span>
+                                        Kimenyetso cy'itara ryera
+                                    </div>
+                                    <div
+                                        class="bg-white/20 rounded-xl px-4 py-2 text-xs font-bold flex items-center gap-2">
+                                        <span
+                                            class="w-5 h-5 bg-white/30 rounded-md flex items-center justify-center text-[9px]">B</span>
+                                        Umurongo w'umuhanda
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Glow -->
+                        <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-110 -z-10"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-6 mt-20 pt-10 border-t border-white/10 fade-up-4">
+                <div class="text-center">
+                    <p class="text-3xl font-black text-yellow-400 italic">40+</p>
+                    <p class="text-blue-200 text-xs font-black uppercase tracking-widest mt-1">Ibizamini</p>
+                </div>
+                <div class="text-center border-x border-white/10">
+                    <p class="text-3xl font-black text-yellow-400 italic">500+</p>
+                    <p class="text-blue-200 text-xs font-black uppercase tracking-widest mt-1">Ibibazo</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-black text-yellow-400 italic">free</p>
+                    <p class="text-blue-200 text-xs font-black uppercase tracking-widest mt-1">Gutangira</p>
+                </div>
+            </div>
+
+            <!-- Contact us section inside hero -->
+            <div class="mt-12 bg-white/10 backdrop-blur-md rounded-[2rem] p-6 border border-white/20 fade-up-4">
+                <p class="text-[10px] font-black uppercase text-blue-200 tracking-widest mb-4 text-center">Inyunganizi
+                    cyangwa Ikibazo? Twandikire</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://wa.me/250795987348"
+                        class="flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-xl font-black uppercase italic text-xs shadow-lg hover:scale-105 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        WhatsApp
+                    </a>
+                    <a href="tel:250795987348"
+                        class="flex items-center justify-center gap-2 bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-xl font-black uppercase italic text-xs border border-white/30 hover:bg-white/30 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 10a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        Hamagara
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-4 py-2 rounded-full mb-4">Impamvu
+                    yo gukoresha Itarago</span>
+                <h2 class="text-4xl font-black uppercase italic text-gray-900">Itegure neza<br><span
+                        class="text-primary">utsinda bwa mbere</span></h2>
+                <p class="text-gray-500 mt-4 max-w-xl mx-auto font-medium">Izi ni impamvu zituma abantu benshi bagera ku
+                    bigo by'ibizamini bakiteguye.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Benefit 1 -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 card-hover">
+                    <div class="h-14 w-14 bg-blue-50 rounded-2xl flex items-center justify-center text-3xl mb-6">📚
+                    </div>
+                    <h3 class="text-lg font-black uppercase italic mb-3">Ibizamini 40+ by'ukuri</h3>
+                    <p class="text-gray-500 font-medium text-sm leading-relaxed">Ibizamini byose bihuye n'ibizamini bya
+                        PSAC Category B — ibibazo by'ukuri byo mu gihe gishya.</p>
+                </div>
+                <!-- Benefit 2 -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 card-hover">
+                    <div class="h-14 w-14 bg-green-50 rounded-2xl flex items-center justify-center text-3xl mb-6">✅
+                    </div>
+                    <h3 class="text-lg font-black uppercase italic mb-3">Ibisubizo bya buri kibazo</h3>
+                    <p class="text-gray-500 font-medium text-sm leading-relaxed">Nyuma y'ikizamini, ureba ibisubizo
+                        by'ibibazo byose — ukamenya aho wabuze no aho watsindiye.</p>
+                </div>
+                <!-- Benefit 3 -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 card-hover">
+                    <div class="h-14 w-14 bg-yellow-50 rounded-2xl flex items-center justify-center text-3xl mb-6">📊
+                    </div>
+                    <h3 class="text-lg font-black uppercase italic mb-3">Gukurikirana amajyambere</h3>
+                    <p class="text-gray-500 font-medium text-sm leading-relaxed">Reba imi wagezeho, imanota wahawe,
+                        n'ibizamini byose wakoze kugira ngo urebe amajyambere yawe.</p>
+                </div>
+                <!-- Benefit 4 -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 card-hover">
+                    <div class="h-14 w-14 bg-purple-50 rounded-2xl flex items-center justify-center text-3xl mb-6">⏱️
+                    </div>
+                    <h3 class="text-lg font-black uppercase italic mb-3">Nk'ikizamini cy'ukuri</h3>
+                    <p class="text-gray-500 font-medium text-sm leading-relaxed">Ibizamini byose bifite igihe gigenwe
+                        nk'uko bibaye ku kizamini cy'ukuri — iminota 20 kuri ibibazo 20.</p>
+                </div>
+                <!-- Benefit 5 -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 card-hover">
+                    <div class="h-14 w-14 bg-red-50 rounded-2xl flex items-center justify-center text-3xl mb-6">📱</div>
+                    <h3 class="text-lg font-black uppercase italic mb-3">Ikoreshwa kuri Android</h3>
+                    <p class="text-gray-500 font-medium text-sm leading-relaxed">Manura application kuri terefone yawe
+                        ya Android — ikoreshwa biroroshye, nta internet ikenewe nyuma yo gumanura.</p>
+                </div>
+                <!-- Benefit 6 -->
+                <div class="bg-primary rounded-[2rem] p-8 shadow-xl card-hover text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mr-8 -mt-8"></div>
+                    <div class="h-14 w-14 bg-white/20 rounded-2xl flex items-center justify-center text-3xl mb-6">🎯
+                    </div>
+                    <h3 class="text-lg font-black uppercase italic mb-3">Ikizamini 1 Ubuntu!</h3>
+                    <p class="text-blue-100 font-medium text-sm leading-relaxed">Tangira ugerageze nta gufunga konti.
+                        Ikizamini cya mbere ni ubuntu — uhite ubona impamvu Itarago ikubwira.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black uppercase italic text-gray-900">Bikora <span
+                        class="text-primary">bite?</span></h2>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div
+                        class="h-16 w-16 bg-primary rounded-2xl flex items-center justify-center text-white font-black text-2xl mx-auto mb-4 shadow-lg shadow-primary/30">
+                        1</div>
+                    <h4 class="font-black uppercase italic text-sm mb-2">Downloadinga App</h4>
+                    <p class="text-gray-400 text-xs font-medium">Downloadinga Itarago kuri terefone yawe ya Android</p>
+                </div>
+                <div class="hidden md:flex items-center justify-center pt-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#d1d5db" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="h-16 w-16 bg-primary rounded-2xl flex items-center justify-center text-white font-black text-2xl mx-auto mb-4 shadow-lg shadow-primary/30">
+                        2</div>
+                    <h4 class="font-black uppercase italic text-sm mb-2">Injiza Izina</h4>
+                    <p class="text-gray-400 text-xs font-medium">Injiza izina ryawe no kwitangira kwiga</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="h-16 w-16 bg-yellow-400 rounded-2xl flex items-center justify-center text-yellow-900 font-black text-2xl mx-auto mb-4 shadow-lg shadow-yellow-400/30">
+                        🏆</div>
+                    <h4 class="font-black uppercase italic text-sm mb-2">Tsinda Ikizamini!</h4>
+                    <p class="text-gray-400 text-xs font-medium">Tsinda PSAC witonze — Itarago yaguteguye!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING TEASER -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-black uppercase italic mb-4">Ibiciro <span class="text-primary">bihendutse</span>
+            </h2>
+            <p class="text-gray-500 font-medium mb-12">Tangira ubuntu. Hanyuma hitamo icyiciro gikwiye.</p>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-[2rem] p-8 border-2 border-primary shadow-xl relative">
+                    <div
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[9px] px-5 py-1.5 rounded-full font-black uppercase tracking-wider shadow-lg">
+                        🔥 Popular</div>
+                    <p class="text-gray-400 text-xs font-black uppercase tracking-widest mt-2 mb-4">Iminsi 7</p>
+                    <p class="text-5xl font-black italic text-gray-900 mb-1">500</p>
+                    <p class="text-gray-400 text-xs font-black uppercase mb-6">FRW</p>
+                    <ul class="text-xs font-bold text-gray-500 space-y-2 text-left">
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Ibizamini 20</li>
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Amasomo 2</li>
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Ibisubizo byose</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-[2rem] p-8 border border-gray-200 shadow-sm">
+                    <p class="text-gray-400 text-xs font-black uppercase tracking-widest mt-2 mb-4">Ukwezi 1</p>
+                    <p class="text-5xl font-black italic text-gray-900 mb-1">2500</p>
+                    <p class="text-gray-400 text-xs font-black uppercase mb-6">FRW</p>
+                    <ul class="text-xs font-bold text-gray-500 space-y-2 text-left">
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Ibizamini 40+</li>
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Amasomo 8</li>
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Ibisubizo byose</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-[2rem] p-8 border border-gray-200 shadow-sm relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-primary text-white text-[8px] px-10 py-1.5 font-black uppercase transform rotate-45 translate-x-6 translate-y-3 shadow-sm">
+                        PROMO</div>
+                    <p class="text-gray-400 text-xs font-black uppercase tracking-widest mt-2 mb-4">Takalamo</p>
+                    <p class="text-5xl font-black italic text-gray-900 mb-1">1500</p>
+                    <p class="text-gray-400 text-xs font-black uppercase mb-6">FRW</p>
+                    <ul class="text-xs font-bold text-gray-500 space-y-2 text-left">
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Ibizamini 20</li>
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Amasomo 4</li>
+                        <li class="flex gap-2"><span class="text-green-500">✓</span> Ibisubizo byose</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD SECTION -->
+    <section id="download" class="py-24 hero-gradient relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
+            <div class="text-6xl mb-6 float">🏆</div>
+            <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white mb-4">
+                Tangira Ubu!
+            </h2>
+            <p class="text-blue-100 font-medium text-lg mb-10 max-w-lg mx-auto">
+                Downloadinga Itarago kuri Android uyu munsi — ikizamini cya mbere ni ubuntu, nta karita y'inguzanyo
+                ikenewe.
+            </p>
+
+            <!-- Android download button -->
+            <a href="itarago.apk" download="itarago.apk"
+                class="inline-flex items-center gap-4 bg-white text-gray-900 px-10 py-5 rounded-2xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all pulse-btn mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#3ddc84">
+                    <path
+                        d="M17.523 15.341l-1.65-1.65A5.978 5.978 0 0 0 17 12a6 6 0 0 0-6-6 5.978 5.978 0 0 0-1.65.127L7.7 4.477A8 8 0 0 1 19.83 12a7.97 7.97 0 0 1-2.307 3.341zM3.514 9.25a8.004 8.004 0 0 0 0 5.5A7.965 7.965 0 0 0 8 18.83V21a1 1 0 0 0 1.707.707l3-3A1 1 0 0 0 13 18v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-.707 1.707L9.586 17A6.001 6.001 0 0 1 5 12a5.978 5.978 0 0 1 .127-1.227L3.514 9.25z" />
+                </svg>
+                <div class="text-left">
+                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider -mb-0.5">Downloadinga kuri</p>
+                    <p class="text-xl font-black uppercase italic">Android</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+            </a>
+
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="h-px bg-white/20 w-16"></div>
+                <span class="text-white/50 text-xs font-bold uppercase tracking-wider">cyangwa</span>
+                <div class="h-px bg-white/20 w-16"></div>
+            </div>
+
+            <a href="www/index.html"
+                class="inline-flex items-center gap-2 text-blue-200 hover:text-white transition-colors font-black uppercase text-sm tracking-wider">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+                Fungura ku rubuga rw'internet
+            </a>
+
+            <div
+                class="mt-12 flex items-center justify-center gap-6 text-blue-200/60 text-xs font-bold uppercase tracking-wider">
+                <span>✓ Ubuntu kubwa mbere</span>
+                <span>✓ Nta konti ikenewe</span>
+                <span>✓ Category B Rwanda</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 py-10 text-center">
+        <div class="flex items-center justify-center gap-2 mb-3">
+            <img src="assets/logo.png" alt="Itarago" class="h-8 w-auto opacity-80" onerror="this.style.display='none'">
+            <span class="text-white font-black uppercase tracking-wider text-lg">Itarago</span>
+        </div>
+        <p class="text-gray-500 text-xs font-black uppercase tracking-widest">
+            © 2026 Itarago – Urubuga rwa mbere mu bizamini bya PSAC
+        </p>
+        <div class="mt-4 flex items-center justify-center gap-4">
+            <a href="https://wa.me/250795987348"
+                class="text-gray-500 hover:text-green-400 transition-colors text-xs font-bold uppercase tracking-wide">WhatsApp</a>
+            <span class="text-gray-700">·</span>
+            <a href="tel:250795987348"
+                class="text-gray-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide">Hamagara</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>

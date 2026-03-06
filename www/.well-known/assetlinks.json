@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.itarago.app",
+      "sha256_cert_fingerprints": [
+        "EC:2C:35:1F:EC:B1:FE:9E:78:C0:BD:BE:14:C1:85:8C:5A:33:D1:16:A8:A5:66:F1:9C:95:CE:E5:DC:2D:37:D7"
+      ]
+    }
+  }
+]

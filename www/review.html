@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itarago - Gusubiramo Ibibazo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1560BD' }, fontFamily: { rubik: ['Rubik', 'sans-serif'] } } } }</script>
+</head>
+
+<body class="bg-gray-50 font-rubik min-h-screen antialiased">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center gap-4">
+            <a href="index.html" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </a>
+            <div class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="Itarago Logo" class="h-10 w-auto">
+                <span class="text-xl font-black tracking-tight text-primary uppercase">Itarago</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 pb-28">
+        <div class="mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-black uppercase italic">Gusubiramo</h1>
+                <p class="text-gray-400 font-bold" id="exam-id-text">Isuzuma ...</p>
+            </div>
+            <div class="bg-white px-6 py-3 rounded-2xl shadow-sm border border-gray-100 text-center">
+                <p class="text-[10px] font-black uppercase text-gray-400 italic">Amanota</p>
+                <p class="text-xl font-black text-primary" id="score-text">0%</p>
+            </div>
+        </div>
+
+        <div class="space-y-6" id="review-container">
+            <!-- Review items will be inserted here -->
+            <div class="flex items-center justify-center py-20">
+                <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+            </div>
+        </div>
+
+        <div class="mt-12 flex justify-center">
+            <a href="index.html"
+                class="px-10 py-4 bg-gray-900 text-white font-black rounded-xl shadow-lg hover:bg-black transition-all uppercase tracking-widest italic">Inyuma
+                Ahabanza</a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const examId = urlParams.get('id');
+
+            const results = JSON.parse(localStorage.getItem('examResults') || '[]');
+            // Get the latest result for this exam by reversing the array first
+            const result = examId ? [...results].reverse().find(r => r.examId === examId) : results[results.length - 1];
+
+            if (!result || !result.userAnswers) {
+                document.getElementById('review-container').innerHTML = `
+                    <div class="bg-white p-12 rounded-[2.5rem] text-center border-2 border-dashed border-gray-200">
+                        <p class="text-gray-400 font-bold italic">Nta bisubizo byasanzwe byo gusubiramo.</p>
+                        <a href="index.html" class="inline-block mt-4 text-primary font-black uppercase">Subira ahabanza</a>
+                    </div>
+                `;
+                return;
+            }
+
+            document.getElementById('exam-id-text').textContent = `Ikizamini ${result.examId}`;
+            document.getElementById('score-text').textContent = `${result.score}%`;
+
+            try {
+                const response = await fetch('exam.json');
+                const allExams = await response.json();
+                const questions = allExams[result.examId];
+
+                if (!questions) throw new Error('Exam not found');
+
+                renderReview(questions, result.userAnswers);
+            } catch (error) {
+                console.error('Error loading review:', error);
+                document.getElementById('review-container').innerHTML = '<p class="text-center text-red-500 font-bold">Habaye ikibazo mu gushaka ibisubizo.</p>';
+            }
+        });
+
+        function renderReview(questions, userAnswers) {
+            const container = document.getElementById('review-container');
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const userAnswer = userAnswers[index];
+                const correctAnswer = q.answer;
+                const options = q.options;
+                const isCorrect = userAnswer === correctAnswer ||
+                    (['A', 'B', 'C', 'D'][options.indexOf(correctAnswer)] === userAnswer);
+
+                // Note: The saving logic in exam.html stores "A", "B", etc.
+                // We need to handle both cases if necessary, but here we assume userAnswers stores IDs like 'A', 'B'
+
+                const item = document.createElement('div');
+                item.className = 'bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 relative overflow-hidden';
+
+                let statusBadge = isCorrect ?
+                    '<span class="bg-green-100 text-green-700 text-[10px] font-black px-4 py-1.5 rounded-full uppercase italic">Byo</span>' :
+                    '<span class="bg-red-100 text-red-700 text-[10px] font-black px-4 py-1.5 rounded-full uppercase italic">Byibeshye</span>';
+
+                if (!userAnswer) statusBadge = '<span class="bg-gray-100 text-gray-500 text-[10px] font-black px-4 py-1.5 rounded-full uppercase italic">Ntiyasubijwe</span>';
+
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-primary/10 text-primary text-xs font-black px-4 py-1.5 rounded-full">Ikibazo ${index + 1}</span>
+                        ${statusBadge}
+                    </div>
+                    <h3 class="text-lg font-bold mb-6">${q.question}</h3>
+                    <div class="space-y-3">
+                        ${options.map((opt, i) => {
+                    const optId = ['A', 'B', 'C', 'D'][i];
+                    const isUserSelection = userAnswer === optId;
+                    const isCorrectOpt = opt === correctAnswer || optId === correctAnswer; // Handle both answer formats
+
+                    let stateClass = 'bg-gray-50 border-gray-100 text-gray-500';
+                    let icon = '';
+
+                    if (isCorrectOpt) {
+                        stateClass = 'bg-green-50 border-green-200 text-green-700 ring-2 ring-green-500 ring-offset-2';
+                        icon = '✅';
+                    } else if (isUserSelection && !isCorrect) {
+                        stateClass = 'bg-red-50 border-red-200 text-red-700 ring-2 ring-red-500 ring-offset-2';
+                        icon = '❌';
+                    }
+
+                    return `
+                                <div class="flex items-center gap-3 p-4 rounded-xl border-2 ${stateClass} transition-all">
+                                    <span class="w-8 h-8 flex items-center justify-center rounded-lg font-black bg-white/50 text-sm italic">${optId}</span>
+                                    <span class="flex-1 font-bold text-sm">${opt}</span>
+                                    <span class="text-lg">${icon}</span>
+                                </div>
+                            `;
+                }).join('')}
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+    </script>
+
+    <script src="js/exam-updater.js"></script>
+</body>
+
+</html>

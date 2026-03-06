@@ -1,0 +1,81 @@
+[build]
+  publish = "www"
+
+# ============================================================
+# CLEAN PUBLIC URLs  →  internal /www/*.html rewrites
+# Nobody ever sees .html files or ?id= params in the browser.
+# The app and deep links use these clean paths.
+# ============================================================
+
+# Home
+[[redirects]]
+  from   = "/"
+  to     = "/www/index.html"
+  status = 200
+
+# Exam by ID:  /exam/E05  →  /www/exam.html?id=E05
+[[redirects]]
+  from   = "/exam/:id"
+  to     = "/www/exam.html?id=:id"
+  status = 200
+
+# All exams
+[[redirects]]
+  from   = "/exams"
+  to     = "/www/all-exams.html"
+  status = 200
+
+# Profile
+[[redirects]]
+  from   = "/profile"
+  to     = "/www/profile.html"
+  status = 200
+
+# Stats
+[[redirects]]
+  from   = "/stats"
+  to     = "/www/stats.html"
+  status = 200
+
+# Review
+[[redirects]]
+  from   = "/review"
+  to     = "/www/review.html"
+  status = 200
+
+# Welcome / onboarding
+[[redirects]]
+  from   = "/welcome"
+  to     = "/www/welcome.html"
+  status = 200
+
+# ── CORS headers for API files ──────────────────────────────
+[[headers]]
+  for = "/www/exam_manifest.json"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Cache-Control               = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/www/exam.json"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Cache-Control               = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/www/patches/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+# ── App Links verification files ────────────────────────────
+[[headers]]
+  for = "/.well-known/assetlinks.json"
+  [headers.values]
+    Content-Type                = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/.well-known/apple-app-site-association"
+  [headers.values]
+    Content-Type                = "application/json"
+    Access-Control-Allow-Origin = "*"

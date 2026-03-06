@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itarago - Konti Yanjye</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1560BD' }, fontFamily: { rubik: ['Rubik', 'sans-serif'] } } } }</script>
+</head>
+
+<body class="bg-gray-50 font-rubik min-h-screen antialiased">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center gap-4">
+            <a href="index.html" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </a>
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="Itarago Logo" class="h-10 w-auto">
+                <span class="text-xl font-black tracking-tight text-primary uppercase">Itarago</span>
+            </a>
+        </nav>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4 py-8 pb-28">
+        <!-- Profile Info -->
+        <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 text-center mb-8">
+            <div class="h-24 w-24 bg-primary/10 rounded-full flex items-center justify-center text-primary font-black text-3xl mx-auto mb-6 border-4 border-white shadow-lg"
+                id="profile-initials">
+                MP</div>
+            <h1 class="text-2xl font-black uppercase italic mb-1" id="profile-name">Mutesi Pascaline</h1>
+            <p class="text-gray-400 font-bold mb-6" id="profile-phone">+250 780 000 000</p>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-gray-50 p-4 rounded-2xl">
+                    <span class="text-2xl font-black text-primary" id="profile-tests">0</span>
+                    <p class="text-[8px] font-black uppercase text-gray-400">Byakozwe</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-2xl">
+                    <span class="text-2xl font-black text-yellow-500" id="profile-achievements">0</span>
+                    <p class="text-[8px] font-black uppercase text-gray-400">Uduhigo</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Actions -->
+        <div class="space-y-4">
+            <button onclick="editProfile()"
+                class="w-full bg-white p-5 rounded-2xl border border-gray-100 flex items-center justify-between hover:bg-gray-50 transition-all font-black uppercase italic text-sm group">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="h-10 w-10 bg-blue-50 rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                        👤</div>
+                    Guhindura imyirondoro
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </button>
+
+            <button onclick="resetData()"
+                class="w-full bg-white p-5 rounded-2xl border border-gray-100 flex items-center justify-between hover:bg-red-50 hover:border-red-100 transition-all font-black uppercase italic text-sm group text-red-500">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="h-10 w-10 bg-red-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        🗑️</div>
+                    Gusiba amateka yose
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </button>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Bar for Mobile -->
+    <div
+        class="fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-100 z-50 block md:hidden transition-all duration-300 pb-safe">
+        <div class="flex items-center justify-around py-3 px-6">
+            <a href="index.html"
+                class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                <span class="text-[7px] font-black uppercase tracking-widest">Ahabanza</span>
+            </a>
+            <button onclick="window.location.href='index.html?action=random'"
+                class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+                <span class="text-[7px] font-black uppercase tracking-widest">Igeregeze</span>
+            </button>
+            <a href="stats.html"
+                class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+                <span class="text-[7px] font-black uppercase tracking-widest">Isesengura</span>
+            </a>
+            <a href="profile.html" class="flex flex-col items-center gap-1 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="text-[7px] font-black uppercase tracking-widest">Konti</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserProfile();
+        });
+
+        function loadUserProfile() {
+            const stats = JSON.parse(localStorage.getItem('userStats') || '{}');
+            const results = JSON.parse(localStorage.getItem('examResults') || '[]');
+
+            document.getElementById('profile-name').textContent = stats.name || 'Umukoresha';
+            document.getElementById('profile-phone').textContent = stats.phone || 'Nta numero iriho';
+            document.getElementById('profile-tests').textContent = results.length;
+
+            if (stats.name) {
+                const initials = stats.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                document.getElementById('profile-initials').textContent = initials;
+            }
+
+            // Calculate achievements
+            let achievementCount = 0;
+            if (results.length >= 1) achievementCount++; // Day 1
+            if (stats.bestScore >= 95) achievementCount++; // 10 Best
+            if (results.some(r => r.timeSpent > 0 && r.timeSpent < 600)) achievementCount++; // Fast
+            if (stats.bestScore >= 80) achievementCount++; // 80%
+            if (results.length >= 10) achievementCount++; // 20 Exams
+            if (results.length >= 7) achievementCount++; // Streak
+
+            document.getElementById('profile-achievements').textContent = achievementCount;
+        }
+
+        function editProfile() {
+            window.location.href = 'welcome.html';
+        }
+
+        function resetData() {
+            if (confirm('Urakoze gusiba amateka yawe yose? Ibi ntibishobora gusubirwamo.')) {
+                localStorage.removeItem('userStats');
+                localStorage.removeItem('examResults');
+                // Remove all exam progress
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith('examProgress_')) {
+                        localStorage.removeItem(key);
+                        i--;
+                    }
+                }
+                window.location.href = 'welcome.html';
+            }
+        }
+    </script>
+    <script src="js/exam-updater.js"></script>
+</body>
+
+</html>

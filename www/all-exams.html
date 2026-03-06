@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itarago - Ibizamini byose</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1560BD' }, fontFamily: { rubik: ['Rubik', 'sans-serif'] } } } }</script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-rubik min-h-screen antialiased">
+
+    <header
+        class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm flex items-center justify-between pr-4">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </a>
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="Itarago Logo" class="h-8 w-auto">
+                <span class="text-xl font-black tracking-tight text-primary uppercase">Itarago</span>
+            </a>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-sm font-black text-gray-400" id="total-count-nav">...</span>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 pb-28">
+        <!-- Header -->
+        <div class="mb-8 text-left">
+            <h1 class="text-3xl font-black uppercase italic flex items-center gap-3">
+                📚 Ibizamini byose
+                <span class="bg-primary/10 text-primary text-sm font-black px-4 py-2 rounded-full"
+                    id="total-count-hero">0</span>
+            </h1>
+            <p class="text-gray-400 font-bold mt-2 uppercase text-[10px] tracking-widest italic">Hitamo isuzuma utangire
+                kwitoza</p>
+        </div>
+
+
+        <!-- Exams Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="exams-grid">
+            <!-- Dynamic content will be inserted here -->
+        </div>
+    </main>
+
+
+    <script>
+        // Generate all exams
+        let allExamsData = {};
+
+        // Fetch all exams — prefers SW-patched IndexedDB, falls back to bundled exam.json
+        async function fetchAllExams() {
+            try {
+                allExamsData = await (window.ItaragoUpdater
+                    ? ItaragoUpdater.loadExamData()
+                    : fetch('exam.json').then(r => r.json()));
+
+                const exams = [];
+                const examIds = Object.keys(allExamsData).sort((a, b) => {
+                    const numA = parseInt(a.replace('E', ''));
+                    const numB = parseInt(b.replace('E', ''));
+                    return numA - numB;
+                });
+
+                const results = JSON.parse(localStorage.getItem('examResults') || '[]');
+
+                examIds.forEach(id => {
+                    const examQuestions = allExamsData[id];
+                    const userResult = results.filter(r => r.examId === id).sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+
+                    exams.push({
+                        id: id,
+                        category: 'B',
+                        difficulty: 'Mesange',
+                        questions: examQuestions.length,
+                        isFree: true,
+                        completed: !!userResult,
+                        score: userResult ? userResult.score : null
+                    });
+                });
+
+                // Update counts
+                document.getElementById('total-count-nav').textContent = `Ibizamini ${exams.length}`;
+                document.getElementById('total-count-hero').textContent = exams.length;
+
+                return exams;
+            } catch (error) {
+                console.error('Error fetching exams:', error);
+                return [];
+            }
+        }
+
+        // Display exams
+        function displayExams(exams) {
+            const grid = document.getElementById('exams-grid');
+            if (!grid) {
+                console.error('exams-grid element not found!');
+                return;
+            }
+            grid.innerHTML = '';
+
+            exams.forEach(exam => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/30 transition-all cursor-pointer group relative';
+
+                // Badge
+                let badgeHtml = '';
+                if (exam.completed) {
+                    const isPassing = exam.score >= 60;
+                    const badgeColor = isPassing ? 'bg-green-500' : 'bg-red-500';
+                    badgeHtml = `<span class="absolute top-2 right-2 ${badgeColor} text-white text-[8px] font-black px-2 py-0.5 rounded-full">✅ Byakozwe ${exam.score}%</span>`;
+                }
+
+                card.innerHTML = `
+                    ${badgeHtml}
+                    <div class="h-12 w-12 bg-blue-50 rounded-xl flex items-center justify-center text-primary mx-auto mb-3 group-hover:scale-110 transition-transform text-xl">📋</div>
+                    <p class="text-sm font-black uppercase text-center">Ikizamini ${exam.id}</p>
+                    <div class="flex items-center justify-center gap-2 mt-2">
+                        <span class="text-[8px] bg-gray-100 px-2 py-0.5 rounded-full font-bold">ibibazo ${exam.questions}</span>
+                        <span class="text-[8px] text-primary font-black uppercase italic">Kategori ${exam.category}</span>
+                    </div>
+                `;
+
+                card.onclick = () => {
+                    localStorage.setItem('lastExamId', exam.id);
+                    window.location.href = `exam.html?id=${exam.id}`;
+                };
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter exams
+        function filterExams(filter) {
+            const allExams = generateAllExams();
+            let filtered = allExams;
+
+            switch (filter) {
+                case 'free':
+                    filtered = allExams.filter(e => e.isFree);
+                    break;
+                case 'premium':
+                    filtered = allExams.filter(e => !e.isFree);
+                    break;
+                case 'completed':
+                    filtered = allExams.filter(e => e.completed);
+                    break;
+                default:
+                    filtered = allExams;
+            }
+
+            displayExams(filtered);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            let exams = await fetchAllExams();
+            displayExams(exams);
+
+            window.filterExams = async (filter) => {
+                let filtered = exams;
+                switch (filter) {
+                    case 'free': filtered = exams.filter(e => e.isFree); break;
+                    case 'premium': filtered = exams.filter(e => !e.isFree); break;
+                    case 'completed': filtered = exams.filter(e => e.completed); break;
+                }
+                displayExams(filtered);
+            };
+
+            // When SW applies a patch in the background, silently re-render the exam list
+            window.addEventListener('itarago:exams-updated', async () => {
+                console.log('[all-exams] Exams updated — re-rendering list');
+                exams = await fetchAllExams();
+                displayExams(exams);
+            });
+        });
+    </script>
+
+    <style>
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .pb-safe {
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+        }
+    </style>
+    <script src="js/exam-updater.js"></script>
+</body>
+
+</html>

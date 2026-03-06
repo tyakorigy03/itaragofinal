@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="rw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itarago - Amategeko y'ibanze</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1560BD' }, fontFamily: { rubik: ['Rubik', 'sans-serif'] } } } }</script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#F8FAFC] font-rubik min-h-screen antialiased">
+
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <nav class="max-w-4xl mx-auto px-6 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="Itarago Logo" class="h-10 w-auto">
+                <span class="text-sm font-black uppercase italic text-primary tracking-tighter">Amategeko
+                    y'ibanze</span>
+            </a>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] font-black text-gray-400 uppercase" id="page-counter">Ipaji 1/20</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-6 py-10 pb-32">
+        <div id="course-content" class="fade-in">
+            <!-- Content will be injected here -->
+        </div>
+
+        <!-- Navigation Footer -->
+        <footer class="mt-16 flex items-center justify-between gap-6">
+            <button id="prev-btn" onclick="previousPage()"
+                class="flex-1 py-5 bg-gray-100 text-gray-400 font-black uppercase rounded-2xl italic text-xs tracking-widest transition-all">
+                Mbere
+            </button>
+            <button id="next-btn" onclick="nextPage()"
+                class="flex-1 py-5 bg-primary text-white font-black uppercase rounded-2xl shadow-xl shadow-primary/30 hover:bg-blue-700 transition-all italic text-xs tracking-widest">
+                Ikurikira
+            </button>
+        </footer>
+    </main>
+
+    <!-- Progress Indicator (Fixed Bottom) -->
+    <div
+        class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-xl border border-gray-200 px-6 py-3 rounded-full shadow-2xl z-50">
+        <div class="flex items-center gap-4">
+            <div class="w-32 h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div id="progress-bar" class="h-full bg-primary transition-all duration-500" style="width: 5%;"></div>
+            </div>
+            <span id="progress-text" class="text-[9px] font-black uppercase italic text-primary">5% Byarangiye</span>
+        </div>
+    </div>
+
+    <script>
+        const courseData = [
+            {
+                title: "Inyigisho y'ibanze",
+                description: "Muri iki cyigisho, tugiye kurebera hamwe amategeko y'ingezi agenga imitwarire y'imodoka n'imikoreshereze y'umuhanda mu Rwanda.",
+                badge: "Icyigisho 1",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🚦",
+                        color: "blue",
+                        heading: "1. Iruhande rwo gutwarira",
+                        text: "Mu Rwanda, uburyo bw'imitwarire bugendera ku <b>ruhande rw'iburyo</b> rw'umuhanda. Ibi bisobanuye ko imodoka zose zigomba kugendera iburyo.",
+                        tip: "Icyitonderwa: Iyo uhindura icyerekezo, ugomba kubanza kureba niba nta rundi runyabiziga rugukurikiye."
+                    }
+                ]
+            },
+            {
+                title: "Umubuvuduko",
+                description: "Kugenzura umubuvuduko ni ingenzi cyane mu kwirinda impanuka zo mu muhanda.",
+                badge: "Icyigisho 2",
+                sections: [
+                    {
+                        type: "list",
+                        icon: "⚡",
+                        color: "green",
+                        heading: "2. Umubuvuduko ntarengwa",
+                        items: [
+                            { value: "40", label: "Mu mugi (Urban Area)" },
+                            { value: "60", label: "Hanze y'umugi (Highways)" },
+                            { value: "80", label: "Imihanda yihariye" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "Inshingano z'abakoresha umuhanda",
+                description: "Buri muntu wese ukoresha umuhanda afite inshingano zo kwitwararika no kutabangamira abandi.",
+                badge: "Icyigisho 3",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🤝",
+                        color: "purple",
+                        heading: "Inshingano Rusange",
+                        text: "Abakoresha umuhanda bagomba kwifata mu buryo butateza akaga, kandi ntibagomba kubangamira abashinzwe umutekano mu muhanda."
+                    }
+                ]
+            },
+            {
+                title: "Guhindura Icyerekezo",
+                description: "Mbere yo guhindura icyerekezo, ugomba kwerekana aho ugana ukoresheje amatara cyangwa amaboko.",
+                badge: "Icyigisho 4",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🔄",
+                        color: "orange",
+                        heading: "Kwerekana Aho Ugana",
+                        text: "Koresha amatara yerekana icyerekezo (indicators) habura nibura metero 30 aho ugiye guhindurira icyerekezo."
+                    }
+                ]
+            },
+            {
+                title: "Kunyuranaho (Overtaking)",
+                description: "Kunyuranaho biteza akaga iyo bikozwe nabi. Ugomba kubanza kureba neza imbere.",
+                badge: "Icyigisho 5",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🚗💨",
+                        color: "red",
+                        heading: "Amategeko yo Kunyuranaho",
+                        text: "Kunyarana bikorerwa ibumoso bw'ikinyabiziga ushaka kunyuraho. Birabujijwe kunyarana mu makorosi cyangwa mu mpinga y'umusozi."
+                    }
+                ]
+            },
+            {
+                title: "Uruhushya rwo Kunyura (Right of Way)",
+                description: "Mu mahuriro y'imihanda kitariho ibimenyetso, uruhushya ruri mu biganza by'ukuri.",
+                badge: "Icyigisho 6",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🛑",
+                        color: "blue",
+                        heading: "Uruhushya rw'Iburyo",
+                        text: "Iyo imodoka zihuriye aho amategeko atagaragara, imodoka ituruka iburyo niyo ihabwa uruhushya mbere (Priority to the right)."
+                    }
+                ]
+            },
+            {
+                title: "Ibyapa By'umuhanda",
+                description: "Ibyapa bigabanyijemo ibyiciro bitatu: Ibiburira, Ibitegeka, n'Ibibuza.",
+                badge: "Icyigisho 7",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "⚠️",
+                        color: "yellow",
+                        heading: "Ibyapa Ibiburira",
+                        text: "Ibi byapa biba bifite ishusho y'mpatanya (triangle) ifite umuzenguruko utukura. Bitanga amakuru ku bintu bishobora guteza akaga imbere."
+                    }
+                ]
+            },
+            {
+                title: "Amatara y'umuhanda",
+                description: "Amatara akoreshwa mu kuyobora imodoka n'abanyamaguru mu mahuriro y'imihanda.",
+                badge: "Icyigisho 8",
+                sections: [
+                    {
+                        type: "list",
+                        icon: "🚦",
+                        color: "green",
+                        heading: "Kusobanura Amatara",
+                        items: [
+                            { value: "🔴", label: "Hagarara (Stop)" },
+                            { value: "🟡", label: "Tegura/Hagarara niba uri kure" },
+                            { value: "🟢", label: "Genda (Go)" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "Abanyamaguru",
+                description: "Abanyamaguru nabo bagengwa n'amategeko y'umuhanda kandi bafite uburenganzira bwabo.",
+                badge: "Icyigisho 9",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🚶",
+                        color: "indigo",
+                        heading: "Aho Banyura",
+                        text: "Abanyamaguru bagomba gushaka imihanda yabugenewe cyangwa bakagendera ku ruhande rw'ibumoso kugira ngo barebe imodoka zibaturuka imbere."
+                    }
+                ]
+            },
+            {
+                title: "Guhagarara no Guparika",
+                description: "Ntibemerewe guhagarara ahantu hashobora kubangamira abandi barimo gukoresha umuhanda.",
+                badge: "Icyigisho 10",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🅿️",
+                        color: "blue",
+                        heading: "Ahantu Habujijwe",
+                        text: "Birabujijwe guparika ahantu hari ikimenyetso kibibuza, cyangwa mu muhanda rwagati hagati y'iminzira ibiri."
+                    }
+                ]
+            },
+            {
+                title: "Ibinyabiziga by'Ubutabazi",
+                description: "Iyo wumvise ifirimbi y'ubutabazi, ugomba guharira umuhanda vuba.",
+                badge: "Icyigisho 11",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🚑",
+                        color: "red",
+                        heading: "Guha Inzira",
+                        text: "Ibinyabiziga by'ubutabazi (Ambilansi, Polisi, Fire Extinguishers) bifite uburenganzira bwo gutambuka mbere y'abandi iyo byerekanye ibimenyetso."
+                    }
+                ]
+            },
+            {
+                title: "Ikimenyetso cy'Akaboko",
+                description: "Nubwo imodoka zifite amatara, akaboko gashobora gukoreshwa igihe amatara adakora.",
+                badge: "Icyigisho 12",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🙋‍♂️",
+                        color: "orange",
+                        heading: "Uburyo bukoreshwa",
+                        text: "Gukoresha akaboko bigomba gukoranwa ubushishozi kandi ntiwibagirwe gukoresha indorerwamo (mirrors)."
+                    }
+                ]
+            },
+            {
+                title: "Kuyobora mu Mahuriro (Roundabout)",
+                description: "Kuyobora mu ruziga bigengwa n'amategeko yihariye yo guharira.",
+                badge: "Icyigisho 13",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "⭕",
+                        color: "blue",
+                        heading: "Guha Uruhushya",
+                        text: "Iyo ugeze mu ruziga, ugomba guha uruhushya imodoka zose zimaze kwinjiramo urwo ruziga (turutka ibumoso bwawe)."
+                    }
+                ]
+            },
+            {
+                title: "Intera Hagati y'Ibinyabiziga",
+                description: "Ugomba gusiga intera ihagije hagati yawe n'imodoka ikubanziriza.",
+                badge: "Icyigisho 14",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "📏",
+                        color: "cyan",
+                        heading: "Amategeko y'Igiye (2 Seconds)",
+                        text: "Gusiga intera igufasha guhagarara neza igihe imodoka y'imbere ihagaze bitunguranye."
+                    }
+                ]
+            },
+            {
+                title: "Gukoresha Amatara Nijoro",
+                description: "Amatara nijoro atuma ubona neza ariko ugomba no kwitondera kutamurika abandi mu maso.",
+                badge: "Icyigisho 15",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🌙",
+                        color: "yellow",
+                        heading: "Kuzimya Amatara Maremare",
+                        text: "Iyo umotse indi modoka cyangwa ugiye guhura n'imvura, zimya amatara maremare ukoresheje agufi (dim lighting)."
+                    }
+                ]
+            },
+            {
+                title: "Kuzura Ibinyabiziga",
+                description: "Birabujijwe kurenza umubare w'abantu cyangwa ibintu byemewe gutwarwa.",
+                badge: "Icyigisho 16",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "📦",
+                        color: "brown",
+                        heading: "Gupakira Neza",
+                        text: "Ntamzigo ugomba kuva mu kinyabiziga, cyangwa ngo ube ufungiye nabi kuburyo ushobora guteza impanuka."
+                    }
+                ]
+            },
+            {
+                title: "Amagare n'Amategeko Yayo",
+                description: "Nubwo ari mato, amagare nawo agengwa n'amategeko y'umuhanda.",
+                badge: "Icyigisho 17",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🚲",
+                        color: "green",
+                        heading: "Kwambara Ingofero",
+                        text: "Abatwaye amagare bagomba kwitwararika mu muhanda, bagakoresha impande zabugenewe niba zihari."
+                    }
+                ]
+            },
+            {
+                title: "Ibinyabiziga Bikururwa n'Inyamaswa",
+                description: "Amagare n'ibindi bikururwa n'inyamaswa nabyo bifite uko bitwarwa.",
+                badge: "Icyigisho 18",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "🐎",
+                        color: "gray",
+                        heading: "Kuyobora Inyamaswa",
+                        text: "Inyamaswa zigomba kuba ziyobowe n'umuntu ubifitiye ubushobozi, kandi ntizigomba guteza umuvundo mu muhanda."
+                    }
+                ]
+            },
+            {
+                title: "Ibyangombwa by'Ibinyabiziga",
+                description: "Buri motari/mushoferi agomba kugira ibyangombwa byerekana ko yemerewe gukoresha umuhanda.",
+                badge: "Icyigisho 19",
+                sections: [
+                    {
+                        type: "list",
+                        icon: "📄",
+                        color: "blue",
+                        heading: "Ibyangombwa Ingero",
+                        items: [
+                            { value: "🆔", label: "Permis de Conduire" },
+                            { value: "📄", label: "Assurance (Ubwishingizi)" },
+                            { value: "🛠️", label: "Contrôle Technique" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "Incamake n'Umwanzuro",
+                description: "Kurikiza amategeko yose wize kugira ngo ube umushoferi mwiza uhesha umutekano abandi.",
+                badge: "Icyigisho 20",
+                sections: [
+                    {
+                        type: "card",
+                        icon: "✅",
+                        color: "green",
+                        heading: "Warangije Icyigisho!",
+                        text: "Turagushimiye! Noneho ushobora gusubira mu bindi bizamini kugira ngo ugerageze ubumenyi bwawe.",
+                        tip: "Inama: Soma ibi amategeko kenshi kugira ngo bihamye mu mutwe."
+                    }
+                ]
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function renderPage() {
+            const page = courseData[currentIndex];
+            const container = document.getElementById('course-content');
+
+            // Update Header & Progress
+            document.getElementById('page-counter').innerText = `Ipaji ${currentIndex + 1}/${courseData.length}`;
+            const progress = ((currentIndex + 1) / courseData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').innerText = `${Math.round(progress)}% Byarangiye`;
+
+            // Render Page Content
+            let sectionsHtml = '';
+            page.sections.forEach(s => {
+                if (s.type === 'card') {
+                    sectionsHtml += `
+                        <section class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 mb-8">
+                            <div class="h-12 w-12 bg-${s.color}-50 rounded-2xl flex items-center justify-center text-2xl mb-6">${s.icon}</div>
+                            <h3 class="text-xl font-black uppercase italic text-gray-800 mb-4">${s.heading}</h3>
+                            <p class="text-gray-600 leading-relaxed mb-4">${s.text}</p>
+                            ${s.tip ? `<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl italic text-sm text-yellow-800">${s.tip}</div>` : ''}
+                        </section>
+                    `;
+                } else if (s.type === 'list') {
+                    sectionsHtml += `
+                        <section class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 mb-8">
+                            <div class="h-12 w-12 bg-${s.color}-50 rounded-2xl flex items-center justify-center text-2xl mb-6">${s.icon}</div>
+                            <h3 class="text-xl font-black uppercase italic text-gray-800 mb-4">${s.heading}</h3>
+                            <ul class="space-y-4">
+                                ${s.items.map(i => `
+                                    <li class="flex items-start gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                                        <span class="bg-white h-7 w-12 rounded-lg flex items-center justify-center font-black text-xs text-primary shadow-sm">${i.value}</span>
+                                        <div class="text-[11px] font-bold text-gray-500 uppercase">${i.label}</div>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </section>
+                    `;
+                }
+            });
+
+            container.innerHTML = `
+                <div class="mb-12">
+                    <span class="bg-primary/10 text-primary text-[10px] font-black px-4 py-1.5 rounded-full uppercase italic border border-primary/20 mb-4 inline-block">${page.badge}</span>
+                    <h2 class="text-4xl font-black text-gray-900 uppercase italic leading-tight mb-4">${page.title}</h2>
+                    <p class="text-gray-500 font-medium leading-relaxed italic">${page.description}</p>
+                </div>
+                <article class="space-y-4">
+                    ${sectionsHtml}
+                </article>
+            `;
+
+            // Update Buttons
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (currentIndex === 0) {
+                prevBtn.classList.add('bg-gray-100', 'text-gray-400', 'cursor-not-allowed');
+                prevBtn.classList.remove('bg-white', 'text-gray-700', 'hover:bg-gray-50', 'shadow-md');
+                prevBtn.disabled = true;
+            } else {
+                prevBtn.classList.remove('bg-gray-100', 'text-gray-400', 'cursor-not-allowed');
+                prevBtn.classList.add('bg-white', 'text-gray-700', 'hover:bg-gray-50', 'shadow-md');
+                prevBtn.disabled = false;
+            }
+
+            if (currentIndex === courseData.length - 1) {
+                nextBtn.innerText = 'Subira Ahabanza';
+            } else {
+                nextBtn.innerText = 'Ikurikira';
+            }
+
+            window.scrollTo(0, 0);
+            container.classList.remove('fade-in');
+            void container.offsetWidth; // Trigger reflow
+            container.classList.add('fade-in');
+        }
+
+        function nextPage() {
+            if (currentIndex < courseData.length - 1) {
+                currentIndex++;
+                renderPage();
+            } else {
+                window.location.href = 'courses.html';
+            }
+        }
+
+        function previousPage() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderPage();
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderPage);
+    </script>
+</body>
+
+</html>

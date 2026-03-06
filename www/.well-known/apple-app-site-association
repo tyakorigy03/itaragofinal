@@ -1,0 +1,19 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "REPLACE_WITH_TEAM_ID.com.itarago.app",
+        "paths": [
+          "/exam/*",
+          "/exams",
+          "/profile",
+          "/stats",
+          "/review",
+          "/welcome",
+          "/"
+        ]
+      }
+    ]
+  }
+}
