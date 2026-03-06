@@ -1,5 +1,5 @@
 [build]
-  publish = "www"
+  publish = "."
 
 # ============================================================
 # CLEAN PUBLIC URLs  →  internal /www/*.html rewrites
@@ -7,19 +7,19 @@
 # The app and deep links use these clean paths.
 # ============================================================
 
-# Home
+# web
 [[redirects]]
   from   = "/web"
   to     = "/www/index.html"
   status = 200
-# Home
+# app
 [[redirects]]
   from   = "/app"
   to     = "/itarago.apk"
   status = 200
-# Exam by ID:  /exam/E05  →  /www/exam.html?id=E05
+# Exam by ID:  /koraexam/E05  →  /www/exam.html?id=E05
 [[redirects]]
-  from   = "/exam/:id"
+  from   = "/koraexam/:id"
   to     = "/www/exam.html?id=:id"
   status = 200
 
