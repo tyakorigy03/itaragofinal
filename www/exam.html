@@ -213,7 +213,7 @@
                     <div
                         class="h-6 w-6 bg-green-50 rounded-full flex items-center justify-center text-green-500 mt-0.5">
                         ✓</div>
-                    <p class="text-sm font-bold text-gray-600 leading-relaxed">Kanda ku gihitamo wumva ari cyo, hanyuma
+                    <p class="text-sm font-bold text-gray-600 leading-relaxed">Kanda ku gisubizo wumvako ari cyo, hanyuma
                         ukande "Imbere".</p>
                 </div>
                 <div class="flex items-start gap-3">
@@ -221,12 +221,12 @@
                         class="h-6 w-6 bg-green-50 rounded-full flex items-center justify-center text-green-500 mt-0.5">
                         ✓</div>
                     <p class="text-sm font-bold text-gray-600 leading-relaxed">Ugomba kubona <span
-                            class="text-green-600">80%</span> (16/20) kugira ngo utsinde.</p>
+                            class="text-green-600">60%</span> (12/20) kugira ngo utsinde.</p>
                 </div>
             </div>
 
             <button onclick="startExamNow()"
-                class="w-full py-4 bg-primary text-white font-black uppercase italic rounded-2xl shadow-xl shadow-primary/30 hover:bg-blue-700 transition-all hover:scale-[1.02] active:scale-95">Tangiye
+                class="w-full py-4 bg-primary text-white font-black uppercase italic rounded-2xl shadow-xl shadow-primary/30 hover:bg-blue-700 transition-all hover:scale-[1.02] active:scale-95">Tangira
                 Ikizamini</button>
         </div>
     </div>
@@ -309,7 +309,7 @@
     </main>
 
     <!-- Removed bottom navbar for stack view per UI/UX best practices -->
-
+     <script src="js/exam_server.js"></script>
     <script>
         // Exam Data
         let currentExam = {
@@ -336,9 +336,7 @@
         // Load questions — force-syncs from Netlify if the exam ID is not stored locally
         async function fetchQuestions(examId) {
             try {
-                let data = await (window.ItaragoUpdater
-                    ? ItaragoUpdater.loadExamData()
-                    : fetch('exam.json').then(r => r.json()));
+                let data = await fetch_exams();
 
                 // Exam not found locally → force-sync from Netlify, then retry once
                 if (!data[examId] && window.ItaragoUpdater) {
@@ -867,7 +865,6 @@
             });
         });
     </script>
-    <script src="js/exam-updater.js"></script>
 </body>
 
 </html>
